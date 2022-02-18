@@ -1,0 +1,112 @@
+{
+  "name": "janush-auto-generated-app-web",
+  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@hookform/resolvers": "^2.8.1",
+    "@mui/icons-material": "^5.0.0-rc.1",
+    "@mui/material": "^5.0.0-rc.1",
+    "@mui/styles": "^5.0.0-rc.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "aws-amplify": "^4.2.10",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.15.4",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.15.0",
+    "@cypress/code-coverage": "^3.9.12",
+    "@cypress/instrument-cra": "^1.4.0",
+    "@types/faker": "^5.5.9",
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.177",
+    "@types/react-helmet": "^6.1.2",
+    "@types/react-router-dom": "^5.1.8",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "cypress": "^9.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "faker": "^5.5.3",
+    "mochawesome": "^7.0.1",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.0.1",
+    "prettier": "2.4.1",
+    "react-app-rewired": "^2.1.8"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --watchAll=false --coverage",
+    "test-jest": "jest --silent --testEnvironment jsdom --timers fake --coverage",
+    "eject": "react-scripts eject",
+    "cy:lint": "eslint --ext .ts ./cypress --color",
+    "cy:format": "prettier --ignore-path ./cypress/.prettierignore --write ./cypress/**/*.ts",
+    "cy:open": "cypress open --config-file ./cypress/cypress.json",
+    "cy:run": "node ./cypress/scripts/cypress-run.js",
+    "cy:coverage:start": "react-app-rewired -r @cypress/instrument-cra start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "resetMocks": false,
+    "moduleNameMapper": {
+      "@components/(.*)": "<rootDir>/src/components/$1",
+      "@consts/(.*)": "<rootDir>/src/consts/$1",
+      "@interfaces/(.*)": "<rootDir>/src/interfaces/$1",
+      "@janush-types/(.*)": "<rootDir>/src/types/$1",
+      "@utils/(.*)": "<rootDir>/src/utils/$1",
+      "@features/(.*)": "<rootDir>/src/features/$1",
+      "@layouts/(.*)": "<rootDir>/src/layouts/$1",
+      "@routing/(.*)": "<rootDir>/src/routing/$1",
+      "@themes/(.*)": "<rootDir>/src/themes/$1"
+    }
+  },
+  "nyc": {
+    "report-dir": "./cypress/reports/code-coverage",
+    "temp-dir": "./cypress/reports/code-coverage/.nyc_output",
+    "reporter": [
+      "html"
+    ]
+  }
+}
