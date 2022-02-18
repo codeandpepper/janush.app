@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - gh-workflows-tests
+      - gh-workflows-tests3
     pull_request:
       types: [opened, synchronize, reopened]
 
@@ -109,7 +110,7 @@ jobs:
           aws-region: ${{ secrets.REGION }}
       - run: npm install
         working-directory: ./web
-      - run: REACT_APP_REGION=$REGION REACT_APP_IDENTITY_POOL_ID=$IDENTITY_POOL_ID REACT_APP_USER_POOL_ID=$USER_POOL_ID REACT_APP_USER_POOL_WEB_CLIENT_ID=$USER_POOL_WEB_CLIENT_ID npm run build
+      - run: REACT_APP_REGION='eu-central1' REACT_APP_IDENTITY_POOL_ID='test1' REACT_APP_USER_POOL_ID='test2' REACT_APP_USER_POOL_WEB_CLIENT_ID='test3' npm run build
         env:
           IDENTITY_POOL_ID: ${{ needs.cloud-deploy.outputs.cognitoIdentityPoolId }}
           USER_POOL_ID: ${{ needs.cloud-deploy.outputs.cognitoUserPoolId }}
