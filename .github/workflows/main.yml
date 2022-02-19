@@ -108,11 +108,14 @@ jobs:
           aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.REGION }}
-      - run: npm install
+      - run: |
+          npm install
+          echo "IDENTITY_POOL_ID=1234" >> $GITHUB_ENV
         working-directory: ./web
-      - run: REACT_APP_REGION='eu-central1' REACT_APP_IDENTITY_POOL_ID='test1' REACT_APP_USER_POOL_ID='test2' REACT_APP_USER_POOL_WEB_CLIENT_ID='test3' npm run build
+      - run: REACT_APP_REGION=${{ env.action_state }} REACT_APP_IDENTITY_POOL_ID=${{env.IDENTITY_POOL_ID}} REACT_APP_USER_POOL_ID='test2' REACT_APP_USER_POOL_WEB_CLIENT_ID='test3' npm run build
         env:
-          IDENTITY_POOL_ID: ${{ needs.cloud-deploy.outputs.cognitoIdentityPoolId }}
+          
+          #IDENTITY_POOL_ID: ${{ needs.cloud-deploy.outputs.cognitoIdentityPoolId }}
           USER_POOL_ID: ${{ needs.cloud-deploy.outputs.cognitoUserPoolId }}
           USER_POOL_WEB_CLIENT_ID: ${{ needs.cloud-deploy.outputs.cognitoUserPoolClientId }}
         working-directory: ./web
