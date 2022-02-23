@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - gh-workflows-tests
+      - amp_fix
     pull_request:
       types: [opened, synchronize, reopened]
 
