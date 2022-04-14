@@ -1,0 +1,6 @@
+name: Amplify Deployment
+author: Oskar Zaremba
+description: Amplify Deployment and Variables Extracting
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

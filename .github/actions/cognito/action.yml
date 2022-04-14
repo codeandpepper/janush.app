@@ -1,0 +1,6 @@
+name: Cognito Deployment
+author: Oskar Zaremba
+description: Cognito Deployment and Variables Extracting
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

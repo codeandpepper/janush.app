@@ -1,0 +1,31 @@
+{
+  "name": "janush.app",
+  "version": "1.0.0",
+  "description": "Modern project.",
+  "main": "index.js",
+	"scripts": {
+		"remove": "rm .github/actions/cognito/index.js .github/actions/cognito/dist/index.js",
+		"compile": "npx tsc .github/actions/cognito/index.ts && ncc build .github/actions/cognito/index.js -o .github/actions/cognito/dist -m",
+		"remove2": "rm .github/actions/amplify/index.js .github/actions/amplify/dist/index.js",
+		"compile2": "npx tsc .github/actions/amplify/index.ts && ncc build .github/actions/amplify/index.js -o .github/actions/amplify/dist -m"
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeandpepper/janush.app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeandpepper/janush.app/issues"
+  },
+  "homepage": "https://github.com/codeandpepper/janush.app#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.24",
+    "typescript": "^4.6.3"
+  }
+}
