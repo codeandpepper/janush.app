@@ -11,6 +11,7 @@ interface CognitoUserPoolProps {
 export class CognitoUserPoolCdkConstruct extends Construct {
   public userPool: cognito.UserPool;
   public userPoolClient: cognito.UserPoolClient;
+  public userPoolGroups: cognito.CfnUserPoolGroup;
   constructor(
     scope: Construct,
     id: string,
@@ -53,6 +54,16 @@ export class CognitoUserPoolCdkConstruct extends Construct {
         ],
         preventUserExistenceErrors: true,
         userPool: this.userPool,
+      }
+    );
+
+    this.userPoolGroups = new cognito.CfnUserPoolGroup(
+      this,
+      `${envName}-AdminUserPoolGroup`,
+      {
+        userPoolId: this.userPool.userPoolId,
+        description: "Admin gruop for users management",
+        groupName: "admin",
       }
     );
 
