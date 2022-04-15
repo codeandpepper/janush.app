@@ -24,19 +24,9 @@ export class AppSyncCdkConstruct extends Construct {
     this.api = new appSync.CfnGraphQLApi(this, `${envName}-AppSyncApi`, {
       authenticationType: "AMAZON_COGNITO_USER_POOLS",
       name: `${envName}-AppSyncApi`,
-      additionalAuthenticationProviders: [
-        {
-          authenticationType: "AMAZON_COGNITO_USER_POOLS",
-          userPoolConfig: {
-            appIdClientRegex: userPoolClient.userPoolClientId,
-            awsRegion: process.env.CDK_DEFAULT_ACCOUNT,
-            userPoolId: userPool.userPoolId,
-          },
-        },
-      ],
       userPoolConfig: {
         appIdClientRegex: userPoolClient.userPoolClientId,
-        awsRegion: process.env.CDK_DEFAULT_ACCOUNT,
+        awsRegion: process.env.CDK_DEFAULT_REGION,
         defaultAction: "ALLOW",
         userPoolId: userPool.userPoolId,
       },
