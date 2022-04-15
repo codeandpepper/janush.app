@@ -1,4 +1,4 @@
-import { CfnOutput, StackProps } from "aws-cdk-lib";
+import { CfnOutput, StackProps, aws_cognito as cognito } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 import { EnvName } from "../../enums/EnvName";
@@ -12,6 +12,9 @@ interface CognitoProps {
 }
 
 export class CognitoCdkConstruct extends Construct {
+  public cognitoUserPool: cognito.UserPool;
+  public cognitoUserPoolClient: cognito.UserPoolClient;
+  public cognitoUserPoolGroups: cognito.CfnUserPoolGroup;
   constructor(
     scope: Construct,
     id: string,
@@ -19,11 +22,14 @@ export class CognitoCdkConstruct extends Construct {
   ) {
     super(scope, id);
 
-    const { userPool, userPoolClient } = new CognitoUserPoolCdkConstruct(
-      this,
-      `${envName}-CognitoUserPool`,
-      { envName }
-    );
+    const { userPool, userPoolClient, userPoolGroups } =
+      new CognitoUserPoolCdkConstruct(this, `${envName}-CognitoUserPool`, {
+        envName,
+      });
+
+    this.cognitoUserPool = userPool;
+    this.cognitoUserPoolClient = userPoolClient;
+    this.cognitoUserPoolGroups = userPoolGroups;
 
     const { identityPool, identityPoolRoleAttachment } =
       new CognitoIdentityPoolCdkConstruct(
