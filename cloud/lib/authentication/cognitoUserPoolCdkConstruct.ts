@@ -62,7 +62,7 @@ export class CognitoUserPoolCdkConstruct extends Construct {
       `${envName}-AdminUserPoolGroup`,
       {
         userPoolId: this.userPool.userPoolId,
-        description: "Admin gruop for users management",
+        description: "Admin group for users management",
         groupName: "admin",
       }
     );

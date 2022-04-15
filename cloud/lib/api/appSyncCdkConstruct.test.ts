@@ -19,7 +19,7 @@ describe("Application stack [Api]", () => {
     template.hasResource("AWS::AppSync::GraphQLApi", {
       Properties: {
         AuthenticationType: "AMAZON_COGNITO_USER_POOLS",
-        Name: "Api",
+        Name: `${EnvName.Development}-AppSyncApi`,
       },
     });
   });
