@@ -1,0 +1,12 @@
+type User {
+  username: String!
+  email: String!
+}
+
+type Query {
+  listUsers: [User!]!
+}
+
+schema {
+  query: Query
+}
