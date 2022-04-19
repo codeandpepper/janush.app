@@ -1,1 +1,8 @@
 .idea/
+.github/
+web/.env
+web/node_modules/
+cloud/node_modules/
+cloud/cdk.out
+cloud/.env
+node_modules
