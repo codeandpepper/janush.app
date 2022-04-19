@@ -22,7 +22,9 @@ export class CognitoCdkConstruct extends Construct {
     const { userPool, userPoolClient } = new CognitoUserPoolCdkConstruct(
       this,
       `${envName}-CognitoUserPool`,
-      { envName }
+      {
+        envName,
+      }
     );
 
     const { identityPool, identityPoolRoleAttachment } =
