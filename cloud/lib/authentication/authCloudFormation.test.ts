@@ -66,4 +66,13 @@ describe("Application stack [Auth]", () => {
       },
     });
   });
+
+  it("should have a admin User Pool Group resource", () => {
+    template.hasResource("AWS::Cognito::UserPoolGroup", {
+      Properties: {
+        description: "Group for admin users",
+        groupName: "Admins",
+      },
+    });
+  });
 });
