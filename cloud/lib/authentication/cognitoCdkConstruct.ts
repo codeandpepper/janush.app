@@ -6,6 +6,7 @@ import { ServicePurpose } from "../../enums/ServicePurpose";
 import { applyTagsToResource } from "../../utils/functions";
 import { CognitoIdentityPoolCdkConstruct } from "./cognitoIdentityPoolCdkConstruct";
 import { CognitoUserPoolCdkConstruct } from "./cognitoUserPoolCdkConstruct";
+import { CognitoAppsyncConstruct } from "../cognitoAppsyncConstruct/cognitoAppsyncConstruct";
 
 interface CognitoProps {
   envName: EnvName;
@@ -58,5 +59,9 @@ export class CognitoCdkConstruct extends Construct {
         purpose: ServicePurpose.Authentication,
       }
     );
+
+    new CognitoAppsyncConstruct(this, `${envName}-CognitoAppSync`, {
+      userPool,
+    });
   }
 }

@@ -1,0 +1,9 @@
+type User @aws_cognito_user_pools {
+  username: String!
+  email: String!
+}
+
+type Query {
+  listUsers: [User]
+    @aws_cognito_user_pools
+}
