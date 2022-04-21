@@ -5,7 +5,7 @@ import {
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
-import { EnvName } from "../../enums/EnvName";
+import { EnvName } from "@enums/EnvName";
 
 interface CognitoIdentityPoolProps {
   envName: EnvName;
@@ -42,12 +42,12 @@ export class CognitoIdentityPoolCdkConstruct extends Construct {
     this.identityPool.node.addDependency(userPoolClient);
     this.identityPool.node.addDependency(userPool);
 
-    // IAM Role for unauthorized Cognito users
+    // IAM Role for unauthorized Cognito createUser
     const unauthorizedCognitoUserRole = new iam.Role(
       this,
       `${envName}-RoleForUnauthenticatedCognitoUser`,
       {
-        description: "Default role for anonymous users",
+        description: "Default role for anonymous createUser",
         assumedBy: new iam.FederatedPrincipal(
           "cognito-identity.amazonaws.com",
           {
@@ -68,12 +68,12 @@ export class CognitoIdentityPoolCdkConstruct extends Construct {
       }
     );
 
-    // IAM Role for authorized Cognito users
+    // IAM Role for authorized Cognito createUser
     const authorizedCognitoUserRole = new iam.Role(
       this,
       "RoleForAuthenticatedCognitoUser",
       {
-        description: "Default role for authenticated users",
+        description: "Default role for authenticated createUser",
         assumedBy: new iam.FederatedPrincipal(
           "cognito-identity.amazonaws.com",
           {

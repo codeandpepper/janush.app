@@ -1,7 +1,7 @@
 import { StackProps, Duration, aws_cognito as cognito } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
-import { EnvName } from "../../enums/EnvName";
+import { EnvName } from "@enums/EnvName";
 import { EmailsCdkConstruct } from "./emails/emailsCdkConstruct";
 
 interface CognitoUserPoolProps {
@@ -62,7 +62,7 @@ export class CognitoUserPoolCdkConstruct extends Construct {
       `${envName}-AdminUserPoolGroup`,
       {
         userPoolId: this.userPool.userPoolId,
-        description: "Admin group for users management",
+        description: "Admin group for createUser management",
         groupName: "admin",
       }
     );
