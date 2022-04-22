@@ -5,6 +5,7 @@ import {
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { EnvName } from "@enums/EnvName";
+import { CreateUserCdkConstruct } from "../authentication/createUser/createUserCdkConstruct";
 
 interface AppSyncProps {
   envName: EnvName;
@@ -23,6 +24,8 @@ export class AppSyncCdkConstruct extends Construct {
 
     const appSyncName = `${envName}-AppSyncApi`;
 
+    const { userPoolId, userPoolArn } = userPool;
+
     this.api = new appSync.CfnGraphQLApi(this, appSyncName, {
       authenticationType: "AMAZON_COGNITO_USER_POOLS",
       name: appSyncName,
@@ -30,8 +33,13 @@ export class AppSyncCdkConstruct extends Construct {
         appIdClientRegex: userPoolClient.userPoolClientId,
         awsRegion: process.env.CDK_DEFAULT_REGION,
         defaultAction: "ALLOW",
-        userPoolId: userPool.userPoolId,
+        userPoolId: userPoolId,
       },
+    });
+
+    new CreateUserCdkConstruct(this, `${envName}-CreateUserLambda`, {
+      envName,
+      userPoolArn,
     });
   }
 }

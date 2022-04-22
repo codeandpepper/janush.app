@@ -2,7 +2,7 @@ import { Construct } from "constructs";
 import { EnvName } from "@enums/EnvName";
 import { aws_lambda_nodejs as lambda, aws_iam as iam } from "aws-cdk-lib";
 import * as path from "path";
-import { DEFAULT_LAMBDA_RUNTIME } from "@consts/index";
+import { DEFAULT_LAMBDA_RUNTIME } from "../../../consts/index";
 
 interface CreateUserProps {
   envName: EnvName;
@@ -26,7 +26,7 @@ export class CreateUserCdkConstruct extends Construct {
         entry: path.join(__dirname, "./createUserLambda.ts"),
         initialPolicy: [
           new iam.PolicyStatement({
-            actions: ["cognito-idp:idp:AdminCreateUser"],
+            actions: ["cognito-idp:AdminCreateUser"],
             effect: iam.Effect.ALLOW,
             resources: [userPoolArn],
           }),

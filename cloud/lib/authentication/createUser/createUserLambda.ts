@@ -34,10 +34,9 @@ export const handler: Handler<CreateUserEvent, boolean | void> = async (
       },
       {
         Name: "email_verified",
-        Value: "true",
+        Value: "false",
       },
     ],
-    TemporaryPassword: Math.random().toString(36).substr(2, 10),
   };
 
   try {
