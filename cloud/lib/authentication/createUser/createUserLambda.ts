@@ -1,5 +1,5 @@
 import { Handler } from "aws-lambda";
-import { CognitoIdentityServiceProvider } from "aws-sdk";
+import * as AWS from "aws-sdk";
 
 interface CreateUserEvent {
   arguments: {
@@ -10,7 +10,9 @@ interface CreateUserEvent {
   };
 }
 
-const cognito = new CognitoIdentityServiceProvider();
+const cognito = new AWS.CognitoIdentityServiceProvider({
+  region: process.env.CDK_DEFAULT_REGION,
+});
 
 export const handler: Handler<CreateUserEvent, boolean | void> = async (
   event,
@@ -39,7 +41,7 @@ export const handler: Handler<CreateUserEvent, boolean | void> = async (
   };
 
   try {
-    await cognito.adminCreateUser(newUserParams);
+    await cognito.adminCreateUser(newUserParams).promise();
     callback(null, true);
   } catch (e) {
     callback(e.message);
