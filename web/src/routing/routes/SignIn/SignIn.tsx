@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Paths } from "@routing/paths";
 import { SignInView } from "@routing/routes/SignIn/SignInView/SignInView";
@@ -8,7 +8,7 @@ import { SignInFormState } from "./SignInView/SignInForm/SignInFormState";
 import { isCognitoError } from "@utils/isCognitoError/isCognitoError";
 
 const SignIn: React.VFC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -22,8 +22,8 @@ const SignIn: React.VFC = () => {
         username: email.trim().toLowerCase(),
       });
 
-      history.push(Paths.BASE, {
-        email,
+      navigate(Paths.BASE, {
+        state: email,
       });
     } catch (err: unknown) {
       if (isCognitoError(err)) {

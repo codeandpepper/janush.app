@@ -1,4 +1,4 @@
-import React from "react";
+import { VFC } from "react";
 import { AppBar, Toolbar, Button } from "@mui/material";
 
 import { Logo } from "@layouts/Logo/Logo";
@@ -7,7 +7,11 @@ import { useUserContext } from "@features/UserProvider/useUserContext";
 import { NavLink } from "react-router-dom";
 import { Paths } from "@routing/paths";
 
-export const TopAppBar: React.VFC = () => {
+interface Props {
+  showLogo?: boolean;
+}
+
+export const TopAppBar: VFC<Props> = ({ showLogo = true }) => {
   const { user } = useUserContext();
 
   const signOut = async () => {
@@ -19,8 +23,8 @@ export const TopAppBar: React.VFC = () => {
   };
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Logo />
+      <Toolbar sx={{ display: "flex" }}>
+        {showLogo && <Logo />}
         {user ? (
           <Button
             data-testid="sign-out-button-in-top-app-bar"
