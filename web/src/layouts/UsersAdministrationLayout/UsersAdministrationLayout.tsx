@@ -47,7 +47,7 @@ export const UsersAdministrationLayout: FC<Props> = ({
         py={5}
         px={2}
         mt={0}
-        maxWidth="xl"
+        maxWidth={false}
         sx={{
           backgroundColor: theme.palette.secondary.main,
           minHeight: "calc(100vh - 64px)",
