@@ -19,29 +19,17 @@ export class CognitoAppsyncConstruct extends Construct {
       schema: appsync.Schema.fromAsset(
         path.join(__dirname, "graphql/schema.graphql")
       ),
-      // authorizationConfig: {
-      //   defaultAuthorization: {
-      //     authorizationType: appsync.AuthorizationType.USER_POOL,
-      //     userPoolConfig: {
-      //       userPool: props.userPool,
-      //     },
-      //   },
-      // },
       xrayEnabled: true,
     });
 
     new CfnOutput(this, "GraphQLAPIURL", {
-      value: api.graphqlUrl || "",
+      value: api.graphqlUrl,
     });
 
-    // new CfnOutput(this, "GraphQLAPIKey", {
-    //   value: api.apiKey || "",
-    // });
-
-    const listUsersLambda = new lambda.Function(this, "ListUsersLambda", {
+    const usersLambda = new lambda.Function(this, "UsersLambda", {
       runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset(path.join(__dirname, "lambda/listUsers")),
-      handler: "listUsers.main",
+      code: lambda.Code.fromAsset(path.join(__dirname, "lambda")),
+      handler: "main.handler",
       environment: {
         USER_POOL_ID: props.userPool.userPoolId,
       },
@@ -55,14 +43,16 @@ export class CognitoAppsyncConstruct extends Construct {
       ],
     });
 
-    const lambdaDs = api.addLambdaDataSource(
-      "lambdaDatasource",
-      listUsersLambda
-    );
+    const lambdaDs = api.addLambdaDataSource("lambdaDatasource", usersLambda);
 
     lambdaDs.createResolver({
       typeName: "Query",
-      fieldName: "listUsers",
+      fieldName: "users",
     });
+
+    // lambdaDs.createResolver({
+    //   typeName: "Mutation",
+    //   fieldName: "deleteUser",
+    // });
   }
 }

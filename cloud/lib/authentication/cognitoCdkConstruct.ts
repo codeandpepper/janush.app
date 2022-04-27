@@ -6,13 +6,15 @@ import { ServicePurpose } from "../../enums/ServicePurpose";
 import { applyTagsToResource } from "../../utils/functions";
 import { CognitoIdentityPoolCdkConstruct } from "./cognitoIdentityPoolCdkConstruct";
 import { CognitoUserPoolCdkConstruct } from "./cognitoUserPoolCdkConstruct";
-import { CognitoAppsyncConstruct } from "../cognitoAppsyncConstruct/cognitoAppsyncConstruct";
+import { UserPool } from "aws-cdk-lib/aws-cognito";
 
 interface CognitoProps {
   envName: EnvName;
 }
 
 export class CognitoCdkConstruct extends Construct {
+  public userPool: UserPool;
+
   constructor(
     scope: Construct,
     id: string,
@@ -25,6 +27,8 @@ export class CognitoCdkConstruct extends Construct {
       `${envName}-CognitoUserPool`,
       { envName }
     );
+
+    this.userPool = userPool;
 
     const { identityPool, identityPoolRoleAttachment } =
       new CognitoIdentityPoolCdkConstruct(
@@ -59,9 +63,5 @@ export class CognitoCdkConstruct extends Construct {
         purpose: ServicePurpose.Authentication,
       }
     );
-
-    new CognitoAppsyncConstruct(this, `${envName}-CognitoAppSync`, {
-      userPool,
-    });
   }
 }

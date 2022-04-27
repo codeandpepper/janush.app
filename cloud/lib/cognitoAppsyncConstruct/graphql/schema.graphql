@@ -1,12 +1,9 @@
 type User {
-  username: String!
   email: String!
+  updated_at: String!
 }
 
 type Query {
-  listUsers: [User!]!
+  users: [User!]!
 }
 
-schema {
-  query: Query
-}
