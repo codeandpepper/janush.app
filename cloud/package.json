@@ -1,0 +1,42 @@
+{
+  "name": "janush-auto-generated-app-cloud",
+  "version": "0.1.0",
+  "bin": {
+    "cloud": "bin/janush-auto-generated-app.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/aws-amplify-alpha": "^2.7.0-alpha.0",
+    "@types/aws-lambda": "^8.10.83",
+    "@types/jest": "^26.0.10",
+    "@types/lambda-tester": "^3.6.1",
+    "@types/node": "10.17.27",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "jest": "^26.4.2",
+    "aws-sdk-mock": "^5.5.0",
+    "esbuild": "^0.13.2",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "ts-jest": "^26.2.0",
+    "lambda-tester": "^4.0.1",
+    "mjml": "^4.9.3",
+    "prettier": "^2.2.1",
+    "aws-cdk": "^2.7.0",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.7.0",
+    "aws-sdk": "2.995.0",
+    "constructs": "^10.0.0",
+    "source-map-support": "^0.5.16"
+  }
+}
