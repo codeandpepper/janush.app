@@ -1,11 +1,6 @@
 import { FC } from "react";
 
-import {
-  Select as MuiSelect,
-  MenuItem,
-  SxProps,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Select as MuiSelect, MenuItem, SelectProps } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 interface Option {
@@ -13,22 +8,17 @@ interface Option {
   label: string;
 }
 
-interface Props {
+interface Props extends SelectProps {
   options: Option[];
-  value: string;
-  onChange: (e: SelectChangeEvent<string>) => void;
-  sx?: SxProps;
 }
 
-export const Select: FC<Props> = ({ options, value, onChange, sx }) => {
+export const Select: FC<Props> = ({ options, ...selectProps }) => {
   return (
     <MuiSelect
-      value={value}
-      onChange={onChange}
       variant="standard"
-      sx={sx}
       // TODO: change to icon from Figma
       IconComponent={KeyboardArrowDownIcon}
+      {...selectProps}
     >
       {options.map((option) => (
         <MenuItem value={option.name} key={option.name}>

@@ -1,16 +1,18 @@
-import { VFC } from "react";
+import { useState, VFC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Box } from "@mui/material";
 
-import { Button, Variant } from "@components/Button/Button";
+import { Button } from "@components/Button/Button";
 import { ListElement } from "@components/ListElement/ListElement";
 import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
 import UsersTable from "../../Users/UsersTable/UsersTable";
-
+import { EditGroupModal } from "../Modals/EditGroupModal/EditGroupModal";
+import { ConfirmationModal } from "@components/ConfirmationModal/ConfirmationModal";
 import { Paths } from "@routing/paths";
 import { Group } from "@janush-types/group";
 import { User } from "@janush-types/user";
+import { rgbaColors } from "@themes/palette";
 
 const data: User[] = [
   {
@@ -50,6 +52,9 @@ const GroupDetails: VFC = () => {
   // TODO: change to get group data from backend
   const { group } = location.state as LocationState;
 
+  const [showEditGroupModal, setShowEditGroupModal] = useState(false);
+  const [showDeletingGroupModal, setShowDeletingGroupModal] = useState(false);
+
   const onTableRowClick = (user: User) => {
     navigate(`${Paths.USERS_ADMINISTRATION_USERS_PATH}/${user.id}`, {
       state: { user },
@@ -61,11 +66,18 @@ const GroupDetails: VFC = () => {
       onBackClick={() => navigate(-1)}
       buttons={
         <>
-          <Button sx={{ mr: 2 }}>Edit group</Button>
-          <Button sx={{ mr: 2 }} variant={Variant.Outlined}>
+          <Button sx={{ mr: 2 }} onClick={() => setShowEditGroupModal(true)}>
+            Edit group
+          </Button>
+          <Button sx={{ mr: 2 }} disabled>
             Remove user
           </Button>
-          <Button sx={{ mr: 2 }}>Delete group</Button>
+          <Button
+            sx={{ mr: 2 }}
+            onClick={() => setShowDeletingGroupModal(true)}
+          >
+            Delete group
+          </Button>
         </>
       }
     >
@@ -74,10 +86,15 @@ const GroupDetails: VFC = () => {
           pb: 6.5,
           borderBottomLeftRadius: "4px",
           borderBottomRightRadius: "4px",
-          boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.15)",
+          boxShadow: `0px 2px 6px ${rgbaColors.grey.light}`,
         }}
       >
-        <Box px={2} pt={1} pb={4} boxShadow="0px 4px 4px rgba(0, 0, 0, 0.05)">
+        <Box
+          px={2}
+          pt={1}
+          pb={4}
+          boxShadow={`0px 4px 4px ${rgbaColors.grey.lightest}`}
+        >
           <ListElement label="Name" value={group.name} />
           <ListElement label="Description" value={group.description} />
           <ListElement label="Group role" value="xxxxxxx" />
@@ -87,6 +104,18 @@ const GroupDetails: VFC = () => {
         </Box>
         <UsersTable data={data} onRowClick={onTableRowClick} />
       </Box>
+      <EditGroupModal
+        showModal={showEditGroupModal}
+        closeModal={() => setShowEditGroupModal(false)}
+      />
+      <ConfirmationModal
+        title="Deleting group"
+        showModal={showDeletingGroupModal}
+        closeModal={() => setShowDeletingGroupModal(false)}
+        onSubmit={() => null}
+      >
+        Are you sure You want to delete this group?
+      </ConfirmationModal>
     </UsersAdministrationLayout>
   );
 };

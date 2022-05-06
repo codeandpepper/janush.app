@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
 import GroupsTable from "./GroupsTable/GroupsTable";
 import { Group } from "@janush-types/group";
 import { Button } from "@components/Button/Button";
+import { CreateGroupModal } from "./Modals/CreateGroupModal/CreateGroupModal";
 
 const data: Group[] = [
   {
@@ -23,11 +24,21 @@ const data: Group[] = [
 ];
 
 const Groups: React.VFC = () => {
+  const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
+
   return (
     <UsersAdministrationLayout
-      buttons={<Button sx={{ mr: 2 }}>New Group</Button>}
+      buttons={
+        <Button sx={{ mr: 2 }} onClick={() => setShowCreateGroupModal(true)}>
+          New Group
+        </Button>
+      }
     >
       <GroupsTable data={data} />
+      <CreateGroupModal
+        showModal={showCreateGroupModal}
+        closeModal={() => setShowCreateGroupModal(false)}
+      />
     </UsersAdministrationLayout>
   );
 };

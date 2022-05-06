@@ -8,7 +8,7 @@ import { Link } from "@components/Link/Link";
 import { ArrowLeftIcon } from "@components/icons/ArrowLeftIcon/ArrowLeftIcon";
 import { PageLayout } from "@layouts/PageLayout/PageLayout";
 import { TopAppBar } from "@layouts/TopAppBar/TopAppBar";
-
+import { rgbaColors } from "@themes/palette";
 import { Paths } from "@routing/paths";
 
 interface Props {
@@ -80,7 +80,7 @@ export const UsersAdministrationLayout: FC<Props> = ({
                   display: "block",
                   borderBottom: isUsersTab
                     ? `1px solid ${theme.palette.primary.main}`
-                    : "1px solid rgba(0, 0, 0, 0.12)",
+                    : `1px solid ${rgbaColors.grey.lighter}`,
                 }}
               >
                 <MuiButton variant="text" sx={getTabStyles(isUsersTab)}>
@@ -94,7 +94,7 @@ export const UsersAdministrationLayout: FC<Props> = ({
                   display: "block",
                   borderBottom: !isUsersTab
                     ? `1px solid ${theme.palette.primary.main}`
-                    : "1px solid rgba(0, 0, 0, 0.12)",
+                    : `1px solid ${rgbaColors.grey.lighter}`,
                 }}
               >
                 <MuiButton variant="text" sx={getTabStyles(!isUsersTab)}>

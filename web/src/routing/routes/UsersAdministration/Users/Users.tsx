@@ -6,13 +6,15 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
 import UsersTable from "./UsersTable/UsersTable";
-import { Button, Variant } from "@components/Button/Button";
+import { Button } from "@components/Button/Button";
+import { CreateUserModal } from "./Modals/CreateUserModal/CreateUserModal";
 
 import { User } from "@janush-types/user";
 
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Select } from "@components/Select/Select";
+import { rgbaColors } from "@themes/palette";
 
 enum SearchBy {
   Id = "id",
@@ -86,6 +88,7 @@ const Users: VFC = () => {
   });
   const [status, setStatus] = useState(Status.All);
   const [access, setAccess] = useState(Access.All);
+  const [showCreateUserModal, setShowCreateUserModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -97,14 +100,16 @@ const Users: VFC = () => {
     <UsersAdministrationLayout
       buttons={
         <>
-          <Button sx={{ mr: 2 }}>Create user</Button>
-          <Button sx={{ mr: 2 }} variant={Variant.Outlined}>
+          <Button sx={{ mr: 2 }} onClick={() => setShowCreateUserModal(true)}>
+            Create user
+          </Button>
+          <Button sx={{ mr: 2 }} disabled>
             Add to group
           </Button>
-          <Button sx={{ mr: 2 }} variant={Variant.Outlined}>
+          <Button sx={{ mr: 2 }} disabled>
             Enable
           </Button>
-          <Button sx={{ mr: 2 }} variant={Variant.Outlined}>
+          <Button sx={{ mr: 2 }} disabled>
             Disable
           </Button>
         </>
@@ -115,7 +120,7 @@ const Users: VFC = () => {
           pb: 6.5,
           borderBottomLeftRadius: "4px",
           borderBottomRightRadius: "4px",
-          boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.15)",
+          boxShadow: `0px 2px 6px ${rgbaColors.grey.light}`,
         }}
       >
         <Box p={2} display="flex" justifyContent="space-between">
@@ -202,6 +207,10 @@ const Users: VFC = () => {
         </Box>
         <UsersTable data={data} onRowClick={onTableRowClick} />
       </Box>
+      <CreateUserModal
+        showModal={showCreateUserModal}
+        closeModal={() => setShowCreateUserModal(false)}
+      />
     </UsersAdministrationLayout>
   );
 };

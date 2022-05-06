@@ -1,7 +1,7 @@
 import { VFC } from "react";
 
 import { useTheme } from "@mui/material/styles";
-import { Theme } from "@mui/material";
+import { Theme, Checkbox } from "@mui/material";
 
 import { Table } from "@components/Table/Table";
 import { ConditionalText } from "@components/ConditionalText/ConditionalText";
@@ -9,6 +9,7 @@ import { ConditionalText } from "@components/ConditionalText/ConditionalText";
 import { User } from "@janush-types/user";
 
 const columns = [
+  { name: "checkbox", label: "" },
   { name: "id", label: "ID" },
   { name: "email", label: "Email" },
   { name: "phoneNumber", label: "Phone Number" },
@@ -50,6 +51,9 @@ const UsersTable: VFC<Props> = ({ data, onRowClick }) => {
               key={item.id}
               onClick={() => onRowClick(item)}
             >
+              <TableCell>
+                <Checkbox onClick={(e) => e.stopPropagation()} />
+              </TableCell>
               <TableCell sx={{ fontWeight: 400 }}>{item.id}</TableCell>
               <TableCell sx={{ fontWeight: 400 }}>{item.email}</TableCell>
               <TableCell sx={{ fontWeight: 400 }}>{item.phoneNumber}</TableCell>
