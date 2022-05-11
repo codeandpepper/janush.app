@@ -8,6 +8,7 @@ import { Paths } from "@routing/paths";
 
 import { SignInForm } from "./SignInForm/SignInForm";
 import { SignInFormState } from "./SignInForm/SignInFormState";
+import { FederatedSignIn } from "./FederatedSignIn/FederatedSignIn";
 
 interface Props {
   error: string;
@@ -28,6 +29,7 @@ export const SignInView: VFC<Props> = ({ error, loading, onSignIn }) => {
           </Typography>
         </Box>
         <SignInForm error={error} loading={loading} onSubmit={onSignIn} />
+        <FederatedSignIn />
       </Container>
       <AuthBottomBar
         text="Don't have an account?"
