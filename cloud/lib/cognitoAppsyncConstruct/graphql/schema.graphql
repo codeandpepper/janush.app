@@ -1,0 +1,9 @@
+type User {
+  email: String!
+  updated_at: String!
+}
+
+type Query {
+  users: [User!]!
+}
+
