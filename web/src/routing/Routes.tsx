@@ -6,6 +6,9 @@ const IndexPage = lazy(() => import("./routes/Index/IndexPage"));
 const SignIn = lazy(() => import("./routes/SignIn/SignIn"));
 const SignUp = lazy(() => import("./routes/SignUp/SignUp"));
 const VerifyEmail = lazy(() => import("./routes/VerifyEmail/VerifyEmail"));
+const PasswordReset = lazy(() =>
+  import("./routes/PasswordReset/PasswordReset")
+);
 
 export const Routes: VFC = () => {
   return (
@@ -13,6 +16,7 @@ export const Routes: VFC = () => {
       <Route path={Paths.SIGN_IN_PATH} component={SignIn} />
       <Route path={Paths.SIGN_UP_PATH} component={SignUp} />
       <Route path={Paths.VERIFY_EMAIL_PATH} component={VerifyEmail} />
+      <Route path={Paths.PASSWORD_RESET_PATH} component={PasswordReset} />
       <Route path="/" component={IndexPage} />
     </Switch>
   );

@@ -9,6 +9,8 @@ import { Paths } from "@routing/paths";
 import { SignInForm } from "./SignInForm/SignInForm";
 import { SignInFormState } from "./SignInForm/SignInFormState";
 
+import { Link } from "@components/Link/Link";
+
 interface Props {
   error: string;
   loading: boolean;
@@ -27,7 +29,11 @@ export const SignInView: VFC<Props> = ({ error, loading, onSignIn }) => {
             Sign in
           </Typography>
         </Box>
+
         <SignInForm error={error} loading={loading} onSubmit={onSignIn} />
+        <Link to={Paths.PASSWORD_RESET_PATH}>
+          <Typography mt={1}>Forgot Password?</Typography>
+        </Link>
       </Container>
       <AuthBottomBar
         text="Don't have an account?"
