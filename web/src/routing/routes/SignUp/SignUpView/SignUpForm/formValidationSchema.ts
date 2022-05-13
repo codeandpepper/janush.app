@@ -1,7 +1,10 @@
 import { object, ref, SchemaOf, string } from "yup";
 
 import { MAX_EMAIL_LENGTH } from "@consts/index";
-import { passwordValidation } from "@utils/validation/passwordValidation";
+import {
+  confirmPasswordValidation,
+  passwordValidation,
+} from "@utils/validation/passwordValidation";
 import { validateMaxStringLength } from "@utils/validation/validateMaxStringLength";
 
 import { SignUpFormState } from "./formState";
@@ -15,7 +18,5 @@ export const formValidationSchema = (): SchemaOf<SignUpFormState> =>
         validateMaxStringLength(v, MAX_EMAIL_LENGTH)
       ),
     password: passwordValidation(),
-    confirmPassword: string()
-      .required("Password is a required field")
-      .oneOf([ref("password"), null], "Passwords must match"),
+    confirmPassword: confirmPasswordValidation(),
   }) as SchemaOf<SignUpFormState>;

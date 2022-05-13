@@ -1,4 +1,4 @@
-import { string } from "yup";
+import { ref, string } from "yup";
 import StringSchema from "yup/lib/string";
 
 import { MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH } from "../../consts";
@@ -18,3 +18,12 @@ export const passwordValidation = (): StringSchema<
       "Your password should contain at least 10 characters"
     )
     .max(MAX_PASSWORD_LENGTH, "Your password is too long, max. 80 characters");
+
+export const confirmPasswordValidation = (): StringSchema<
+  string | undefined,
+  Record<string, unknown>,
+  string | undefined
+> =>
+  string()
+    .required("Password is a required field")
+    .oneOf([ref("password"), null], "Passwords must match");

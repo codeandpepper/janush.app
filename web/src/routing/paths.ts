@@ -3,6 +3,6 @@ export enum Paths {
   SIGN_IN_PATH = "/sign-in",
   SIGN_UP_PATH = "/sign-up",
   VERIFY_EMAIL_PATH = "/verify-email",
-  PASSWORD_RESET_PATH = "/password-reset",
-  VERIFY_PASSWORD_PATH = "/verify-password",
+  FORGOT_PASSWORD_PATH = "/forgot-password",
+  RESET_PASSWORD_PATH = "/reset-password",
 }

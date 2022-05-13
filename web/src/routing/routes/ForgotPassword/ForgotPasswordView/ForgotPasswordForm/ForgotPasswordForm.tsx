@@ -5,12 +5,12 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useStyles } from "./styles";
 
 interface Props {
-  onSubmit(formData: PasswordResetFormState): void;
+  onSubmit(formData: ForgotPasswordFormState): void;
   loading: boolean;
   error?: string;
 }
 
-interface PasswordResetFormState {
+interface ForgotPasswordFormState {
   email: string;
 }
 
@@ -18,14 +18,18 @@ const defaultValues = {
   email: "",
 };
 
-export const PasswordResetForm: VFC<Props> = ({ onSubmit, error, loading }) => {
+export const ForgotPasswordForm: VFC<Props> = ({
+  onSubmit,
+  error,
+  loading,
+}) => {
   const classes = useStyles();
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<PasswordResetFormState>({ defaultValues });
+  } = useForm<ForgotPasswordFormState>({ defaultValues });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
@@ -55,10 +59,10 @@ export const PasswordResetForm: VFC<Props> = ({ onSubmit, error, loading }) => {
           type="submit"
           data-testid="reset-password-button"
           variant="contained"
-          //   disabled={loading}
+          disabled={loading}
           fullWidth
         >
-          Reset Password
+          Send
         </Button>
         {loading && (
           <CircularProgress size={20} className={classes.buttonProgress} />
