@@ -1,13 +1,17 @@
-import React from "react";
-import { AppBar, Toolbar, Button } from "@mui/material";
+import { VFC } from "react";
 
-import { Logo } from "@layouts/Logo/Logo";
-import { Auth } from "aws-amplify";
 import { useUserContext } from "@features/UserProvider/useUserContext";
-import { NavLink } from "react-router-dom";
+import { Logo } from "@layouts/Logo/Logo";
+import { AppBar, Toolbar, Button } from "@mui/material";
 import { Paths } from "@routing/paths";
+import { Auth } from "aws-amplify";
+import { NavLink } from "react-router-dom";
 
-export const TopAppBar: React.VFC = () => {
+interface Props {
+  showLogo?: boolean;
+}
+
+export const TopAppBar: VFC<Props> = ({ showLogo = true }) => {
   const { user } = useUserContext();
 
   const signOut = async () => {
@@ -19,8 +23,8 @@ export const TopAppBar: React.VFC = () => {
   };
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Logo />
+      <Toolbar sx={{ display: "flex" }}>
+        {showLogo && <Logo />}
         {user ? (
           <Button
             data-testid="sign-out-button-in-top-app-bar"

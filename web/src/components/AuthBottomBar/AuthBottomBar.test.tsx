@@ -1,7 +1,6 @@
-import { MemoryRouter } from "react-router-dom";
-import { render } from "@testing-library/react";
-
 import { AuthBottomBar } from "@components/AuthBottomBar/AuthBottomBar";
+import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 describe("<AuthBottomBar />", () => {
   it("should render properly", () => {

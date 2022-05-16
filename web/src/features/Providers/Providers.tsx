@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 
 import { SuspenseProvider } from "@features/SuspenseProvider/SuspenseProvider";
 import { ThemeProvider } from "@features/ThemeProvider/ThemeProvider";
@@ -9,9 +8,7 @@ export const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider>
       <UserProvider>
-        <Router>
-          <SuspenseProvider>{children}</SuspenseProvider>
-        </Router>
+        <SuspenseProvider>{children}</SuspenseProvider>
       </UserProvider>
     </ThemeProvider>
   );

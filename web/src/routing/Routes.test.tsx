@@ -1,11 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { ThemeProvider } from "@mui/styles";
-import { MemoryRouter } from "react-router-dom";
 
+import { ThemeProvider } from "@mui/styles";
 import { Paths } from "@routing/paths";
 import { Routes } from "@routing/Routes";
+import { render, screen } from "@testing-library/react";
 import { createDefaultTheme } from "@themes/defaultTheme";
+import { MemoryRouter } from "react-router-dom";
 
 describe("<Routes />", () => {
   beforeAll(() => {

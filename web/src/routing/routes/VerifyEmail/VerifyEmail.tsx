@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { Auth } from "aws-amplify";
-import { Helmet } from "react-helmet";
-import { Redirect, useLocation } from "react-router-dom";
 
 import { Link } from "@components/Link/Link";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { Paths } from "@routing/paths";
+import { VerifyEmailForm } from "@routing/routes/VerifyEmail/VerifyEmailView/VerifyEmailForm";
+import { Auth } from "aws-amplify";
+import { Helmet } from "react-helmet";
+import { useLocation, Navigate } from "react-router-dom";
 
 import { useStyles } from "./styles";
-import { VerifyEmailForm } from "@routing/routes/VerifyEmail/VerifyEmailView/VerifyEmailForm";
 
 interface LocationState {
   email?: string;
@@ -17,7 +17,9 @@ interface LocationState {
 
 const VerifyEmail: React.VFC = () => {
   const classes = useStyles();
-  const { state } = useLocation<LocationState>();
+
+  const location = useLocation();
+  const state = location.state as LocationState;
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -31,7 +33,7 @@ const VerifyEmail: React.VFC = () => {
     }
   }
 
-  if (!state?.email) return <Redirect to="/" />;
+  if (!state?.email) return <Navigate to="/" replace />;
 
   return (
     <AuthLayout>

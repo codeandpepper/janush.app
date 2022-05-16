@@ -2,15 +2,36 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-"@components/*": ["./src/components/*"],
-      "@consts/*": ["./src/consts/*"],
-      "@interfaces/*": ["./src/interfaces/*"],
-      "@janush-types/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@features/*": ["./src/features/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@routing/*": ["./src/routing/*"],
-      "@themes/*": ["./src/themes/*"],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@consts/*": [
+        "./src/consts/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@janush-types/*": [
+        "./src/types/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@routing/*": [
+        "./src/routing/*"
+      ],
+      "@themes/*": [
+        "./src/themes/*"
+      ],
+      "@validations/*": [
+        "./src/validations/*"
+      ],
     }
   }
 }

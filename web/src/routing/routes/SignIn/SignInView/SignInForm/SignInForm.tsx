@@ -1,14 +1,14 @@
 import React from "react";
+
+import { EmailField } from "@components/EmailField/EmailField";
+import { Form } from "@components/Form/Form";
+import { PasswordField } from "@components/PasswordField/PasswordField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 
-import { Form } from "@components/Form/Form";
-import { EmailField } from "@components/EmailField/EmailField";
-import { PasswordField } from "@components/PasswordField/PasswordField";
 import { SignInFormState } from "./SignInFormState";
 import { signInFormValidationSchema } from "./signInFormValidationSchema";
-
 import { useStyles } from "./styles";
 
 interface Props {
