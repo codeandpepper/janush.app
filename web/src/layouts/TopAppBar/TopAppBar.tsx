@@ -1,11 +1,11 @@
 import { VFC } from "react";
-import { AppBar, Toolbar, Button } from "@mui/material";
 
-import { Logo } from "@layouts/Logo/Logo";
-import { Auth } from "aws-amplify";
 import { useUserContext } from "@features/UserProvider/useUserContext";
-import { NavLink } from "react-router-dom";
+import { Logo } from "@layouts/Logo/Logo";
+import { AppBar, Toolbar, Button } from "@mui/material";
 import { Paths } from "@routing/paths";
+import { Auth } from "aws-amplify";
+import { NavLink } from "react-router-dom";
 
 interface Props {
   showLogo?: boolean;

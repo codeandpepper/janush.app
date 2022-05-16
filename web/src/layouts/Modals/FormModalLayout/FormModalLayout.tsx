@@ -1,46 +1,52 @@
 import { FC } from "react";
 
+import { Button } from "@components/Button/Button";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
+  Theme,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-
-import { Button } from "@components/Button/Button";
+import { useTheme } from "@mui/material/styles";
 import { rgbaColors } from "@themes/palette";
 
 interface Props {
-  showModal: boolean;
-  closeModal: () => void;
+  isOpen: boolean;
   title: string;
   buttonTitle: string;
-  isButtonDisabled: boolean;
+  isButtonDisabled?: boolean;
   onSubmit?: () => void;
+  onModalClose: () => void;
 }
 
 export const FormModalLayout: FC<Props> = ({
   children,
-  showModal,
-  closeModal,
+  isOpen,
   title,
   buttonTitle,
-  isButtonDisabled,
+  isButtonDisabled = false,
   onSubmit,
+  onModalClose,
 }) => {
+  const theme = useTheme<Theme>();
+
   return (
     <Dialog
-      onClose={closeModal}
-      open={showModal}
+      onClose={onModalClose}
+      open={isOpen}
       sx={{
         "& .MuiPaper-root": {
+          // TODO: Static width need to be removed while implementing RWD
           width: "444px",
         },
       }}
     >
-      <DialogTitle sx={{ fontSize: 24, lineHeight: "24px", pt: 5.5, pb: 1.5 }}>
+      <DialogTitle
+        sx={{ fontSize: 24, lineHeight: theme.spacing(3), pt: 5.5, pb: 1.5 }}
+      >
         {title}
       </DialogTitle>
       <DialogContent sx={{ pb: 2 }}>{children}</DialogContent>
@@ -54,7 +60,7 @@ export const FormModalLayout: FC<Props> = ({
         </Button>
       </DialogActions>
       <IconButton
-        onClick={closeModal}
+        onClick={onModalClose}
         sx={{
           position: "absolute",
           right: 0,

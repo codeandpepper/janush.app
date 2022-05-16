@@ -4,11 +4,12 @@ import { Theme, Snackbar, Alert } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 interface Props {
+  content?: string;
   show: boolean;
   onClose: () => void;
 }
 
-export const ErrorNotification: VFC<Props> = ({ show, onClose }) => {
+export const ErrorNotification: VFC<Props> = ({ content, show, onClose }) => {
   const theme = useTheme<Theme>();
 
   return (
@@ -16,6 +17,7 @@ export const ErrorNotification: VFC<Props> = ({ show, onClose }) => {
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       open={show}
       onClose={onClose}
+      // TODO: Static width need to be removed while implementing RWD
       sx={{ width: "764px", "& .MuiPaper-root": { py: 0.75 } }}
     >
       <Alert
@@ -28,7 +30,7 @@ export const ErrorNotification: VFC<Props> = ({ show, onClose }) => {
         }}
         icon={false}
       >
-        Something went wrong. Please try again.
+        {content || "Something went wrong. Please try again."}
       </Alert>
     </Snackbar>
   );

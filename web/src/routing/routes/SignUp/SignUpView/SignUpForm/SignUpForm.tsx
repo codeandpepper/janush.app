@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
 
-import { Form } from "@components/Form/Form";
 import { EmailField } from "@components/EmailField/EmailField";
+import { Form } from "@components/Form/Form";
 import { PasswordField } from "@components/PasswordField/PasswordField";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { CognitoError } from "@interfaces/Cognito";
 import { CognitoErrorType } from "@janush-types/enums/Cognito";
 import { Nullable } from "@janush-types/useful";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+
 import { SignUpFormState } from "./formState";
 import { formValidationSchema } from "./formValidationSchema";
-
 import { useStyles } from "./styles";
 
 const defaultValues: SignUpFormState = {

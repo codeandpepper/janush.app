@@ -4,7 +4,7 @@ module.exports = function override(config) {
     ...config.resolve,
     alias: {
       ...config.alias,
-"@components": path.resolve(__dirname, "src/components"),
+      "@components": path.resolve(__dirname, "src/components"),
       "@consts": path.resolve(__dirname, "src/consts"),
       "@interfaces": path.resolve(__dirname, "src/interfaces"),
       "@janush-types": path.resolve(__dirname, "src/types"),
@@ -13,6 +13,7 @@ module.exports = function override(config) {
       "@layouts": path.resolve(__dirname, "src/layouts"),
       "@routing": path.resolve(__dirname, "src/routing"),
       "@themes": path.resolve(__dirname, "src/themes"),
+      "@validations": path.resolve(__dirname, "src/validations"),
     },
   };
   return config;

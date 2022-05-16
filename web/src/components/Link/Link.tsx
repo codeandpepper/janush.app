@@ -1,6 +1,7 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+
 import { Link as MuiLink, LinkProps } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 type Props = Omit<LinkProps, "component" | "href"> & {
   to: string;

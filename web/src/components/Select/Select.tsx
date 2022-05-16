@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { Select as MuiSelect, MenuItem, SelectProps } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Select as MuiSelect, MenuItem, SelectProps } from "@mui/material";
 
 interface Option {
   name: string;
@@ -16,7 +16,6 @@ export const Select: FC<Props> = ({ options, ...selectProps }) => {
   return (
     <MuiSelect
       variant="standard"
-      // TODO: change to icon from Figma
       IconComponent={KeyboardArrowDownIcon}
       {...selectProps}
     >

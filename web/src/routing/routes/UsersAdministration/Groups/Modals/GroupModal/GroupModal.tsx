@@ -1,31 +1,24 @@
 import { VFC } from "react";
 
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-import { Box, Typography, Theme } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-
 import { FormInput } from "@components/FormInput/FormInput";
 import { Select } from "@components/Select/Select";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { FormModalLayout } from "@layouts/Modals/FormModalLayout/FormModalLayout";
+import { Box, Typography, Theme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { emailSchema } from "@validations/UserValidation";
+import { useForm, Controller } from "react-hook-form";
+
+export enum GroupModalVariant {
+  Create = "create",
+  Edit = "edit",
+}
 
 const groupRoleOptions = [
   { name: "groupRole1", label: "GroupRole1" },
   { name: "groupRole2", label: "GroupRole2" },
   { name: "groupRole3", label: "GroupRole3" },
 ];
-
-const baseSchema = {
-  firstName: yup.string().max(30).required().label("First name"),
-  lastName: yup.string().max(30).required().label("Last name"),
-};
-
-const emailSchema = yup.object({
-  ...baseSchema,
-  email: yup.string().email().required().label("Email address"),
-});
 
 interface FormData {
   name: string;
@@ -34,11 +27,12 @@ interface FormData {
 }
 
 interface Props {
-  showModal: boolean;
-  closeModal: () => void;
+  variant: GroupModalVariant;
+  isOpen: boolean;
+  onModalClose: () => void;
 }
 
-export const CreateGroupModal: VFC<Props> = ({ showModal, closeModal }) => {
+export const GroupModal: VFC<Props> = ({ variant, ...restProps }) => {
   const theme = useTheme<Theme>();
 
   const { control, formState, handleSubmit } = useForm<FormData>({
@@ -53,11 +47,14 @@ export const CreateGroupModal: VFC<Props> = ({ showModal, closeModal }) => {
 
   return (
     <FormModalLayout
-      showModal={showModal}
-      closeModal={closeModal}
-      title="Create group"
-      buttonTitle="Create group"
+      title={
+        variant === GroupModalVariant.Create ? "Create group" : "Edit group"
+      }
+      buttonTitle={
+        variant === GroupModalVariant.Create ? "Create group" : "Save changes"
+      }
       isButtonDisabled={false}
+      {...restProps}
     >
       <Controller
         name="name"
@@ -80,13 +77,20 @@ export const CreateGroupModal: VFC<Props> = ({ showModal, closeModal }) => {
             label="Description (optional)"
             onChange={field.onChange}
             errorMessage={formState.errors.description?.message}
-            sx={{ mb: 4 }}
+            sx={{ mb: 2 }}
           />
         )}
       />
-      <Box display="flex" justifyContent="space-between" alignItems="flex-end">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="flex-end"
+        mt={2}
+      >
         <Typography color={theme.palette.secondary.dark}>
-          Select a group role
+          {variant === GroupModalVariant.Create
+            ? "Select a group role"
+            : "Group role"}
         </Typography>
         <Controller
           name="groupRole"

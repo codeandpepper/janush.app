@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+import { TextField } from "@components/TextField/TextField";
 import { Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   StandardTextFieldProps,
@@ -8,8 +10,6 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-
-import { TextField } from "@components/TextField/TextField";
 import { formDataTestId } from "@utils/formDataTestId/formDataTestId";
 
 interface Props extends StandardTextFieldProps {

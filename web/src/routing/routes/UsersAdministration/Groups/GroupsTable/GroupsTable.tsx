@@ -1,12 +1,11 @@
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { Theme } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { VFC } from "react";
 
 import { Table } from "@components/Table/Table";
-
 import { Group } from "@janush-types/group";
+import { Theme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { rgbaColors } from "@themes/palette";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { name: "name", label: "Name" },
@@ -19,9 +18,9 @@ interface Props {
   data: Group[];
 }
 
-const GroupsTable: FC<Props> = ({ data }) => {
-  const { TableHead, TableRow, TableCell, TableBody } = Table;
+const { TableHead, TableRow, TableCell, TableBody } = Table;
 
+const GroupsTable: VFC<Props> = ({ data }) => {
   const navigate = useNavigate();
   const theme = useTheme<Theme>();
 
@@ -45,8 +44,7 @@ const GroupsTable: FC<Props> = ({ data }) => {
               sx={{
                 cursor: "pointer",
                 "&:hover": {
-                  // TODO: change to proper color
-                  backgroundColor: theme.palette.grey[100],
+                  backgroundColor: rgbaColors.grey.darkest,
                 },
               }}
               key={item.id}

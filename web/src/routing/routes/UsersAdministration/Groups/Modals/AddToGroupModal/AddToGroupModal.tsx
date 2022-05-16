@@ -1,11 +1,10 @@
 import { VFC } from "react";
-import { useForm, Controller } from "react-hook-form";
-
-import { Box, Typography, Theme } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 
 import { Select } from "@components/Select/Select";
 import { FormModalLayout } from "@layouts/Modals/FormModalLayout/FormModalLayout";
+import { Box, Typography, Theme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { useForm, Controller } from "react-hook-form";
 
 const groupOptions = [
   { name: "group1", label: "Group1" },
@@ -18,11 +17,11 @@ interface FormData {
 }
 
 interface Props {
-  showModal: boolean;
-  closeModal: () => void;
+  isOpen: boolean;
+  onModalClose: () => void;
 }
 
-export const AddToGroupModal: VFC<Props> = ({ showModal, closeModal }) => {
+export const AddToGroupModal: VFC<Props> = ({ ...props }) => {
   const theme = useTheme<Theme>();
 
   const { control, formState, handleSubmit } = useForm<FormData>({
@@ -33,13 +32,7 @@ export const AddToGroupModal: VFC<Props> = ({ showModal, closeModal }) => {
   });
 
   return (
-    <FormModalLayout
-      showModal={showModal}
-      closeModal={closeModal}
-      title="Add user"
-      buttonTitle="Add to group"
-      isButtonDisabled={false}
-    >
+    <FormModalLayout title="Add user" buttonTitle="Add to group" {...props}>
       <Typography color={theme.palette.primary.main}>
         b.szurek@codeandpepper.com
       </Typography>

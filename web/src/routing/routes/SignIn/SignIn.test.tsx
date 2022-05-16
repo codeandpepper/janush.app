@@ -1,9 +1,10 @@
 import React from "react";
+
+import { ThemeProvider } from "@features/ThemeProvider/ThemeProvider";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { Auth } from "aws-amplify";
 import { MemoryRouter } from "react-router-dom";
 
-import { ThemeProvider } from "@features/ThemeProvider/ThemeProvider";
 import SignIn from "./SignIn";
 
 describe("<SignIn />", () => {

@@ -1,12 +1,10 @@
-import { VFC } from "react";
-
-import { useTheme } from "@mui/material/styles";
-import { Theme, Checkbox } from "@mui/material";
+import { VFC, FC } from "react";
 
 import { Table } from "@components/Table/Table";
-import { ConditionalText } from "@components/ConditionalText/ConditionalText";
-
 import { User } from "@janush-types/user";
+import { Typography, Theme, Checkbox } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { rgbaColors } from "@themes/palette";
 
 const columns = [
   { name: "checkbox", label: "" },
@@ -23,9 +21,13 @@ interface Props {
   onRowClick: (user: User) => void;
 }
 
-const UsersTable: VFC<Props> = ({ data, onRowClick }) => {
-  const { TableHead, TableRow, TableCell, TableBody } = Table;
+const { TableHead, TableRow, TableCell, TableBody } = Table;
 
+const TableCellStyled: FC = ({ children }) => (
+  <TableCell sx={{ fontWeight: 400 }}>{children}</TableCell>
+);
+
+const UsersTable: VFC<Props> = ({ data, onRowClick }) => {
   const theme = useTheme<Theme>();
 
   return (
@@ -44,8 +46,7 @@ const UsersTable: VFC<Props> = ({ data, onRowClick }) => {
               sx={{
                 cursor: "pointer",
                 "&:hover": {
-                  // TODO: change to proper color
-                  backgroundColor: theme.palette.grey[100],
+                  backgroundColor: rgbaColors.grey.darkest,
                 },
               }}
               key={item.id}
@@ -54,26 +55,36 @@ const UsersTable: VFC<Props> = ({ data, onRowClick }) => {
               <TableCell>
                 <Checkbox onClick={(e) => e.stopPropagation()} />
               </TableCell>
-              <TableCell sx={{ fontWeight: 400 }}>{item.id}</TableCell>
-              <TableCell sx={{ fontWeight: 400 }}>{item.email}</TableCell>
-              <TableCell sx={{ fontWeight: 400 }}>{item.phoneNumber}</TableCell>
-              <TableCell sx={{ fontWeight: 400 }}>
-                <ConditionalText
-                  isPositive={item.access}
-                  positiveLabel="Enabled"
-                  negativeLabel="Disabled"
-                />
-              </TableCell>
-              <TableCell sx={{ fontWeight: 400 }}>
-                <ConditionalText
-                  isPositive={item.status}
-                  positiveLabel="Confirmed"
-                  negativeLabel="Unconfirmed"
-                />
-              </TableCell>
-              <TableCell sx={{ fontWeight: 400 }}>
-                {item.lastModified}
-              </TableCell>
+              <TableCellStyled>{item.id}</TableCellStyled>
+              <TableCellStyled>{item.email}</TableCellStyled>
+              <TableCellStyled>{item.phoneNumber}</TableCellStyled>
+              <TableCellStyled>
+                <Typography
+                  component="span"
+                  color={
+                    item.access
+                      ? theme.palette.primary.main
+                      : theme.palette.error.main
+                  }
+                  fontSize="14px"
+                >
+                  {item.access ? "Enabled" : "Disabled"}
+                </Typography>
+              </TableCellStyled>
+              <TableCellStyled>
+                <Typography
+                  component="span"
+                  color={
+                    item.status
+                      ? theme.palette.primary.main
+                      : theme.palette.error.main
+                  }
+                  fontSize="14px"
+                >
+                  {item.access ? "Confirmed" : "Unconfirmed"}
+                </Typography>
+              </TableCellStyled>
+              <TableCellStyled>{item.lastModified}</TableCellStyled>
             </TableRow>
           ))
         ) : (

@@ -1,50 +1,58 @@
-import { useState, VFC } from "react";
+import { useState, VFC, FC } from "react";
+
+import { Button } from "@components/Button/Button";
+import { ConfirmationDialog } from "@components/ConfirmationDialog/ConfirmationDialog";
+import { ListElement } from "@components/ListElement/ListElement";
+import { User } from "@janush-types/user";
+import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
+import { Box, Typography, Theme, ButtonProps } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { AddToGroupModal } from "@routing/routes/UsersAdministration/Groups/Modals/AddToGroupModal/AddToGroupModal";
+import { rgbaColors } from "@themes/palette";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Box, Typography } from "@mui/material";
-
-import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
-import { ListElement } from "@components/ListElement/ListElement";
-import { Button } from "@components/Button/Button";
-import { ConfirmationModal } from "@components/ConfirmationModal/ConfirmationModal";
-import { rgbaColors } from "@themes/palette";
-import { EditUserModal } from "../Modals/EditUserModal/EditUserModal";
-import { AddToGroupModal } from "@routing/routes/UsersAdministration/Groups/Modals/AddToGroupModal/AddToGroupModal";
-import { User } from "@janush-types/user";
+import { UserModal, UserModalVariant } from "../Modals/UserModal/UserModal";
 
 interface LocationState {
   user: User;
 }
 
+const ButtonWrapper: FC<ButtonProps> = ({ children, ...buttonProps }) => (
+  <Button sx={{ mr: 2 }} {...buttonProps}>
+    {children}
+  </Button>
+);
+
 const UserDetails: VFC = () => {
+  const theme = useTheme<Theme>();
   const navigate = useNavigate();
 
   const location = useLocation();
   // TODO: change to get user data from backend
   const { user } = location.state as LocationState;
 
-  const [showEditUserModal, setShowEditUserModal] = useState(false);
-  const [showAddToGroupModal, setShowAddToGroupModal] = useState(false);
-  const [showRemovingUserModal, setShowRemovingUserModal] = useState(false);
+  const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false);
+  const [isAddToGroupModalOpen, setIsAddToGroupModalOpen] = useState(false);
+  const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState(false);
 
   return (
     <UsersAdministrationLayout
       onBackClick={() => navigate(-1)}
       buttons={
         <>
-          <Button sx={{ mr: 2 }} onClick={() => setShowEditUserModal(true)}>
+          <ButtonWrapper onClick={() => setIsEditUserModalOpen(true)}>
             Edit
-          </Button>
-          <Button sx={{ mr: 2 }} onClick={() => setShowAddToGroupModal(true)}>
+          </ButtonWrapper>
+          <ButtonWrapper onClick={() => setIsAddToGroupModalOpen(true)}>
             Add to group
-          </Button>
-          <Button sx={{ mr: 2 }} disabled>
-            Enable
-          </Button>
-          <Button sx={{ mr: 2 }}>Disable</Button>
-          <Button sx={{ mr: 2 }} onClick={() => setShowRemovingUserModal(true)}>
+          </ButtonWrapper>
+          {/* TODO: Handle enable button while implementing backend */}
+          <ButtonWrapper disabled>Enable</ButtonWrapper>
+          {/* TODO: Handle disable button while implementing backend */}
+          <ButtonWrapper>Disable</ButtonWrapper>
+          <ButtonWrapper onClick={() => setIsRemoveUserModalOpen(true)}>
             Remove
-          </Button>
+          </ButtonWrapper>
         </>
       }
     >
@@ -54,7 +62,12 @@ const UserDetails: VFC = () => {
         pb={4}
         boxShadow={`0px 4px 4px ${rgbaColors.grey.lightest}`}
       >
-        <Typography fontSize={14} fontWeight={600} lineHeight="24px" mb={2.25}>
+        <Typography
+          fontSize={14}
+          fontWeight={600}
+          lineHeight={theme.spacing(3)}
+          mb={2.25}
+        >
           Account Details
         </Typography>
         <ListElement label="ID" value={user.id} />
@@ -73,22 +86,27 @@ const UserDetails: VFC = () => {
         {/* TODO: set value from server */}
         <ListElement label="Created" value="16-06-2021" />
       </Box>
-      <EditUserModal
-        showModal={showEditUserModal}
-        closeModal={() => setShowEditUserModal(false)}
+      <UserModal
+        isOpen={isEditUserModalOpen}
+        onModalClose={() => setIsEditUserModalOpen(false)}
+        variant={UserModalVariant.Edit}
       />
       <AddToGroupModal
-        showModal={showAddToGroupModal}
-        closeModal={() => setShowAddToGroupModal(false)}
+        isOpen={isAddToGroupModalOpen}
+        onModalClose={() => setIsAddToGroupModalOpen(false)}
       />
-      <ConfirmationModal
-        title="Removing user"
-        showModal={showRemovingUserModal}
-        closeModal={() => setShowRemovingUserModal(false)}
+      <ConfirmationDialog
+        isOpen={isRemoveUserModalOpen}
+        onCancelClick={() => setIsRemoveUserModalOpen(false)}
+        // TODO: Add function for submitting behavior while backend implementation
         onSubmit={() => null}
+        submitButtonTitle="Remove user"
       >
-        Are you sure You want to remove this user?
-      </ConfirmationModal>
+        <ConfirmationDialog.Title>Removing user</ConfirmationDialog.Title>
+        <ConfirmationDialog.Content>
+          Are you sure you want to remove this user?
+        </ConfirmationDialog.Content>
+      </ConfirmationDialog>
     </UsersAdministrationLayout>
   );
 };

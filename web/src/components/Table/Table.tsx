@@ -16,17 +16,11 @@ interface Props {
   dataTestId?: string;
 }
 
-export const Table = ({ children, dataTestId }: Props) => {
-  return (
-    <TableContainer
-      component={Paper}
-      sx={{ boxShadow: "none" }}
-      data-testid={dataTestId}
-    >
-      <MuiTable sx={{ minWidth: 650 }}>{children}</MuiTable>
-    </TableContainer>
-  );
-};
+export const Table = ({ children, ...restProps }: Props) => (
+  <TableContainer component={Paper} sx={{ boxShadow: "none" }} {...restProps}>
+    <MuiTable sx={{ minWidth: 650 }}>{children}</MuiTable>
+  </TableContainer>
+);
 
 Table.TableCell = TableCell;
 Table.TableBody = TableBody;

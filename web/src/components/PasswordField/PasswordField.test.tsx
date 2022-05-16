@@ -1,8 +1,9 @@
 import React from "react";
+
+import { ThemeProvider } from "@features/ThemeProvider/ThemeProvider";
 import { fireEvent, render } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 
-import { ThemeProvider } from "@features/ThemeProvider/ThemeProvider";
 import { PasswordField } from "./PasswordField";
 
 const setup = () => {

@@ -1,19 +1,20 @@
 import { useState, VFC } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
-import { Box } from "@mui/material";
 
 import { Button } from "@components/Button/Button";
+import { ConfirmationDialog } from "@components/ConfirmationDialog/ConfirmationDialog";
 import { ListElement } from "@components/ListElement/ListElement";
-import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
-import UsersTable from "../../Users/UsersTable/UsersTable";
-import { EditGroupModal } from "../Modals/EditGroupModal/EditGroupModal";
-import { ConfirmationModal } from "@components/ConfirmationModal/ConfirmationModal";
-import { Paths } from "@routing/paths";
 import { Group } from "@janush-types/group";
 import { User } from "@janush-types/user";
+import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
+import { Box } from "@mui/material";
+import { Paths } from "@routing/paths";
+import UsersTable from "@routing/routes/UsersAdministration/Users/UsersTable/UsersTable";
 import { rgbaColors } from "@themes/palette";
+import { useLocation, useNavigate } from "react-router-dom";
 
+import { GroupModal, GroupModalVariant } from "../Modals/GroupModal/GroupModal";
+
+// TODO: Remove it after getting data from backend
 const data: User[] = [
   {
     id: "1c4a9a8d-b652-421a-b130-9ad680029521",
@@ -52,8 +53,8 @@ const GroupDetails: VFC = () => {
   // TODO: change to get group data from backend
   const { group } = location.state as LocationState;
 
-  const [showEditGroupModal, setShowEditGroupModal] = useState(false);
-  const [showDeletingGroupModal, setShowDeletingGroupModal] = useState(false);
+  const [isEditGroupModalOpen, setIsEditGroupModalOpen] = useState(false);
+  const [isDeleteGroupModalOpen, setIsDeleteGroupModalOpen] = useState(false);
 
   const onTableRowClick = (user: User) => {
     navigate(`${Paths.USERS_ADMINISTRATION_USERS_PATH}/${user.id}`, {
@@ -66,15 +67,16 @@ const GroupDetails: VFC = () => {
       onBackClick={() => navigate(-1)}
       buttons={
         <>
-          <Button sx={{ mr: 2 }} onClick={() => setShowEditGroupModal(true)}>
+          <Button sx={{ mr: 2 }} onClick={() => setIsEditGroupModalOpen(true)}>
             Edit group
           </Button>
+          {/* TODO: Handle removing user while implementing backend */}
           <Button sx={{ mr: 2 }} disabled>
             Remove user
           </Button>
           <Button
             sx={{ mr: 2 }}
-            onClick={() => setShowDeletingGroupModal(true)}
+            onClick={() => setIsDeleteGroupModalOpen(true)}
           >
             Delete group
           </Button>
@@ -104,18 +106,23 @@ const GroupDetails: VFC = () => {
         </Box>
         <UsersTable data={data} onRowClick={onTableRowClick} />
       </Box>
-      <EditGroupModal
-        showModal={showEditGroupModal}
-        closeModal={() => setShowEditGroupModal(false)}
+      <GroupModal
+        isOpen={isEditGroupModalOpen}
+        onModalClose={() => setIsEditGroupModalOpen(false)}
+        variant={GroupModalVariant.Edit}
       />
-      <ConfirmationModal
-        title="Deleting group"
-        showModal={showDeletingGroupModal}
-        closeModal={() => setShowDeletingGroupModal(false)}
+      <ConfirmationDialog
+        isOpen={isDeleteGroupModalOpen}
+        onCancelClick={() => setIsDeleteGroupModalOpen(false)}
+        // TODO: Add function for submitting behavior while backend implementation
         onSubmit={() => null}
+        submitButtonTitle="Remove user"
       >
-        Are you sure You want to delete this group?
-      </ConfirmationModal>
+        <ConfirmationDialog.Title>Deleting group</ConfirmationDialog.Title>
+        <ConfirmationDialog.Content>
+          Are you sure you want to delete this group?
+        </ConfirmationDialog.Content>
+      </ConfirmationDialog>
     </UsersAdministrationLayout>
   );
 };

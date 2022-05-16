@@ -1,23 +1,22 @@
 import { useState, VFC } from "react";
-import { useNavigate } from "react-router-dom";
 
-import { Box, Typography } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-
-import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
-import UsersTable from "./UsersTable/UsersTable";
 import { Button } from "@components/Button/Button";
-import { CreateUserModal } from "./Modals/CreateUserModal/CreateUserModal";
-
+import { SearchIcon } from "@components/icons/SearchIcon/SearchIcon";
+import { Select } from "@components/Select/Select";
 import { User } from "@janush-types/user";
-
+import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
+import { Box, Typography } from "@mui/material";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
-import { Select } from "@components/Select/Select";
 import { rgbaColors } from "@themes/palette";
+import { getOptionsFromEnum } from "@utils/getOptionsFromEnum/getOptionsFromEnum";
+import { useNavigate } from "react-router-dom";
+
+import { UserModal, UserModalVariant } from "./Modals/UserModal/UserModal";
+import UsersTable from "./UsersTable/UsersTable";
 
 enum SearchBy {
-  Id = "id",
+  ID = "id",
   Email = "email",
   Access = "access",
   Status = "status",
@@ -35,25 +34,12 @@ enum Access {
   Disabled = "disabled",
 }
 
-const searchByOptions = [
-  { name: SearchBy.Id, label: "ID" },
-  { name: SearchBy.Email, label: "Email" },
-  { name: SearchBy.Access, label: "Access" },
-  { name: SearchBy.Status, label: "Status" },
-];
+interface Search {
+  searchBy: SearchBy;
+  searchFor: string;
+}
 
-const statusOptions = [
-  { name: Status.All, label: "All" },
-  { name: Status.Confirmed, label: "Confirmed" },
-  { name: Status.Unconfirmed, label: "Unconfirmed" },
-];
-
-const accessOptions = [
-  { name: Access.All, label: "All" },
-  { name: Access.Enabled, label: "Enabled" },
-  { name: Access.Disabled, label: "Disabled" },
-];
-
+// TODO: Remove it after getting data from backend
 const data: User[] = [
   {
     id: "1c4a9a8d-b652-421a-b130-9ad680029521",
@@ -82,13 +68,13 @@ const data: User[] = [
 ];
 
 const Users: VFC = () => {
-  const [search, setSearch] = useState({
+  const [search, setSearch] = useState<Search>({
     searchBy: SearchBy.Email,
     searchFor: "",
   });
-  const [status, setStatus] = useState(Status.All);
-  const [access, setAccess] = useState(Access.All);
-  const [showCreateUserModal, setShowCreateUserModal] = useState(false);
+  const [status, setStatus] = useState<Status>(Status.All);
+  const [access, setAccess] = useState<Access>(Access.All);
+  const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -100,7 +86,7 @@ const Users: VFC = () => {
     <UsersAdministrationLayout
       buttons={
         <>
-          <Button sx={{ mr: 2 }} onClick={() => setShowCreateUserModal(true)}>
+          <Button sx={{ mr: 2 }} onClick={() => setIsCreateUserModalOpen(true)}>
             Create user
           </Button>
           <Button sx={{ mr: 2 }} disabled>
@@ -133,8 +119,9 @@ const Users: VFC = () => {
                   searchBy: e.target.value as SearchBy,
                 })
               }
-              options={searchByOptions}
+              options={getOptionsFromEnum(SearchBy)}
               sx={{
+                // TODO: Static width need to be removed while implementing RWD
                 width: 136,
                 mr: 2,
                 "& .MuiSelect-select": {
@@ -157,6 +144,7 @@ const Users: VFC = () => {
                 sx={{
                   pl: 2,
                   pr: 1.5,
+                  // TODO: Static width need to be removed while implementing RWD
                   width: 272,
                   "& .MuiInput-input": {
                     pb: 1,
@@ -168,8 +156,9 @@ const Users: VFC = () => {
               <Select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as Status)}
-                options={statusOptions}
+                options={getOptionsFromEnum(Status)}
                 sx={{
+                  // TODO: Static width need to be removed while implementing RWD
                   width: 272,
                   "& .MuiSelect-select": {
                     pl: 2,
@@ -184,8 +173,9 @@ const Users: VFC = () => {
               <Select
                 value={access}
                 onChange={(e) => setAccess(e.target.value as Access)}
-                options={accessOptions}
+                options={getOptionsFromEnum(Access)}
                 sx={{
+                  // TODO: Static width need to be removed while implementing RWD
                   width: 272,
                   "& .MuiSelect-select": {
                     pl: 2,
@@ -199,7 +189,7 @@ const Users: VFC = () => {
           </Box>
           <Typography mt={1}>
             <Typography
-              component={"span"}
+              component="span"
               fontWeight={600}
             >{`Showing ${data.length} of ${data.length}`}</Typography>
             {` (selected 0)`}
@@ -207,9 +197,10 @@ const Users: VFC = () => {
         </Box>
         <UsersTable data={data} onRowClick={onTableRowClick} />
       </Box>
-      <CreateUserModal
-        showModal={showCreateUserModal}
-        closeModal={() => setShowCreateUserModal(false)}
+      <UserModal
+        isOpen={isCreateUserModalOpen}
+        onModalClose={() => setIsCreateUserModalOpen(false)}
+        variant={UserModalVariant.Create}
       />
     </UsersAdministrationLayout>
   );

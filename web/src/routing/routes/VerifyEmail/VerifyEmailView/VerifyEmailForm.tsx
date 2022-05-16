@@ -1,12 +1,13 @@
 import { useState, VFC } from "react";
+
+import { Form } from "@components/Form/Form";
 import { TextField } from "@components/TextField/TextField";
 import { Button } from "@mui/material";
-import { Form } from "@components/Form/Form";
-import { Controller, useForm } from "react-hook-form";
-import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
 import { Paths } from "@routing/paths";
 import { isCognitoError } from "@utils/isCognitoError/isCognitoError";
+import { Auth } from "aws-amplify";
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 interface IProps {
   email: string;
 }

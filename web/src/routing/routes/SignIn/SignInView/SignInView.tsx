@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
-import { Helmet } from "react-helmet";
 
 import { AuthBottomBar } from "@components/AuthBottomBar/AuthBottomBar";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
+import { Box, Container, Typography } from "@mui/material";
 import { Paths } from "@routing/paths";
+import { Helmet } from "react-helmet";
+
 import { SignInForm } from "./SignInForm/SignInForm";
 import { SignInFormState } from "./SignInForm/SignInFormState";
 

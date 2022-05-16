@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { VFC, useState } from "react";
 
-import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
-import GroupsTable from "./GroupsTable/GroupsTable";
-import { Group } from "@janush-types/group";
 import { Button } from "@components/Button/Button";
-import { CreateGroupModal } from "./Modals/CreateGroupModal/CreateGroupModal";
+import { Group } from "@janush-types/group";
+import { UsersAdministrationLayout } from "@layouts/UsersAdministrationLayout/UsersAdministrationLayout";
 
+import GroupsTable from "./GroupsTable/GroupsTable";
+import { GroupModal, GroupModalVariant } from "./Modals/GroupModal/GroupModal";
+
+// TODO: Remove it after getting data from backend
 const data: Group[] = [
   {
     id: "1c4a9a8d-b652-421a-b130-9ad680029521",
@@ -23,21 +25,22 @@ const data: Group[] = [
   },
 ];
 
-const Groups: React.VFC = () => {
-  const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
+const Groups: VFC = () => {
+  const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
 
   return (
     <UsersAdministrationLayout
       buttons={
-        <Button sx={{ mr: 2 }} onClick={() => setShowCreateGroupModal(true)}>
+        <Button sx={{ mr: 2 }} onClick={() => setIsCreateGroupModalOpen(true)}>
           New Group
         </Button>
       }
     >
       <GroupsTable data={data} />
-      <CreateGroupModal
-        showModal={showCreateGroupModal}
-        closeModal={() => setShowCreateGroupModal(false)}
+      <GroupModal
+        isOpen={isCreateGroupModalOpen}
+        onModalClose={() => setIsCreateGroupModalOpen(false)}
+        variant={GroupModalVariant.Create}
       />
     </UsersAdministrationLayout>
   );

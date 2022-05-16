@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { VFC } from "react";
 
 import { Box, Typography, Theme } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -8,7 +8,7 @@ interface Props {
   value: string;
 }
 
-export const ListElement: FC<Props> = ({ label, value }) => {
+export const ListElement: VFC<Props> = ({ label, value }) => {
   const theme = useTheme<Theme>();
 
   return (
@@ -17,7 +17,7 @@ export const ListElement: FC<Props> = ({ label, value }) => {
         width="120px"
         color={theme.palette.secondary.dark}
         fontSize={14}
-        lineHeight="24px"
+        lineHeight={theme.spacing(3)}
       >
         {label}
       </Typography>

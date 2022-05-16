@@ -1,22 +1,60 @@
 import { FC, ReactNode } from "react";
-import { useLocation } from "react-router-dom";
 
-import { Box, Theme, Button as MuiButton } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-
-import { Link } from "@components/Link/Link";
 import { ArrowLeftIcon } from "@components/icons/ArrowLeftIcon/ArrowLeftIcon";
+import { Link } from "@components/Link/Link";
 import { PageLayout } from "@layouts/PageLayout/PageLayout";
 import { TopAppBar } from "@layouts/TopAppBar/TopAppBar";
-import { rgbaColors } from "@themes/palette";
+import { Box, Theme, Button as MuiButton } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Paths } from "@routing/paths";
+import { rgbaColors } from "@themes/palette";
+import { checkIsThisCurrentTab } from "@utils/checkIsThisCurrentTab/checkIsThisCurrentTab";
+import { useLocation } from "react-router-dom";
 
-interface Props {
+interface UsersAdministrationLayoutProps {
   onBackClick?: () => void;
   buttons: ReactNode;
 }
 
-export const UsersAdministrationLayout: FC<Props> = ({
+interface TabProps {
+  linkTo: string;
+  isActive: boolean;
+}
+
+const Tab: FC<TabProps> = ({ children, linkTo, isActive }) => {
+  const theme = useTheme<Theme>();
+
+  const getTabStyles = () => ({
+    color: isActive ? theme.palette.primary.main : theme.palette.common.black,
+    opacity: isActive ? 1 : 0.6,
+    fontWeight: 600,
+    lineHeight: theme.spacing(2),
+    height: "100%",
+    borderBottom: isActive
+      ? `1px solid ${theme.palette.primary.main}`
+      : `1px solid ${theme.palette.common.white}`,
+    borderRadius: 0,
+  });
+
+  return (
+    <Link
+      to={linkTo}
+      underline="none"
+      sx={{
+        display: "block",
+        borderBottom: isActive
+          ? `1px solid ${theme.palette.primary.main}`
+          : `1px solid ${rgbaColors.grey.lighter}`,
+      }}
+    >
+      <MuiButton variant="text" sx={getTabStyles()}>
+        {children}
+      </MuiButton>
+    </Link>
+  );
+};
+
+export const UsersAdministrationLayout: FC<UsersAdministrationLayoutProps> = ({
   children,
   onBackClick,
   buttons,
@@ -24,21 +62,7 @@ export const UsersAdministrationLayout: FC<Props> = ({
   const theme = useTheme<Theme>();
   const location = useLocation();
 
-  const isUsersTab = location.pathname.split("/")[2] === "users";
-
-  const getTabStyles = (isTabActive: boolean) => ({
-    color: isTabActive
-      ? theme.palette.primary.main
-      : theme.palette.common.black,
-    opacity: isTabActive ? 1 : 0.6,
-    fontWeight: 600,
-    lineHeight: "16px",
-    height: "100%",
-    borderBottom: isTabActive
-      ? `1px solid ${theme.palette.primary.main}`
-      : `1px solid ${theme.palette.common.white}`,
-    borderRadius: 0,
-  });
+  const isUsersTab = checkIsThisCurrentTab(location, "users");
 
   return (
     <>
@@ -73,34 +97,18 @@ export const UsersAdministrationLayout: FC<Props> = ({
                 display: "flex",
               }}
             >
-              <Link
-                to={Paths.USERS_ADMINISTRATION_USERS_PATH}
-                underline="none"
-                sx={{
-                  display: "block",
-                  borderBottom: isUsersTab
-                    ? `1px solid ${theme.palette.primary.main}`
-                    : `1px solid ${rgbaColors.grey.lighter}`,
-                }}
+              <Tab
+                linkTo={Paths.USERS_ADMINISTRATION_USERS_PATH}
+                isActive={isUsersTab}
               >
-                <MuiButton variant="text" sx={getTabStyles(isUsersTab)}>
-                  Users
-                </MuiButton>
-              </Link>
-              <Link
-                to={Paths.USERS_ADMINISTRATION_GROUPS_PATH}
-                underline="none"
-                sx={{
-                  display: "block",
-                  borderBottom: !isUsersTab
-                    ? `1px solid ${theme.palette.primary.main}`
-                    : `1px solid ${rgbaColors.grey.lighter}`,
-                }}
+                Users
+              </Tab>
+              <Tab
+                linkTo={Paths.USERS_ADMINISTRATION_GROUPS_PATH}
+                isActive={!isUsersTab}
               >
-                <MuiButton variant="text" sx={getTabStyles(!isUsersTab)}>
-                  Groups
-                </MuiButton>
-              </Link>
+                Groups
+              </Tab>
             </Box>
           )}
           <Box mb={1.5}>{buttons}</Box>

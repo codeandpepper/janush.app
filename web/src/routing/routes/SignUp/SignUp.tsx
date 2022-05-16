@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
 
 import { CognitoError } from "@interfaces/Cognito";
 import { CognitoErrorType } from "@janush-types/enums/Cognito";
 import { Nullable } from "@janush-types/useful";
 import { Paths } from "@routing/paths";
 import { SignUpFormState } from "@routing/routes/SignUp/SignUpView/SignUpForm/formState";
-import { SignUpView } from "./SignUpView/SignUpView";
 import { isCognitoError } from "@utils/isCognitoError/isCognitoError";
+import { Auth } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
+
+import { SignUpView } from "./SignUpView/SignUpView";
 
 const SignUp: React.VFC = () => {
   const navigate = useNavigate();

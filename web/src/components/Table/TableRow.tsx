@@ -1,20 +1,11 @@
-import React from "react";
+import { ReactNode, FC } from "react";
 
 import { TableRow as MuiTableRow, TableRowProps } from "@mui/material";
 
 interface Props extends TableRowProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-export const TableRow = ({ children, ...rowProps }: Props) => {
-  return (
-    <MuiTableRow
-      {...rowProps}
-      sx={{
-        ...rowProps.sx,
-      }}
-    >
-      {children}
-    </MuiTableRow>
-  );
-};
+export const TableRow: FC<Props> = ({ children, ...rowProps }) => (
+  <MuiTableRow {...rowProps}>{children}</MuiTableRow>
+);

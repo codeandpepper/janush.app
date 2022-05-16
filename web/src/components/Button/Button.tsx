@@ -1,36 +1,21 @@
 import { FC } from "react";
 
-import {
-  Button as MuiButton,
-  SxProps,
-  Theme,
-  ButtonProps,
-} from "@mui/material";
+import { Button as MuiButton, Theme, ButtonProps } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-
 import { rgbaColors } from "@themes/palette";
 
-interface Props extends ButtonProps {
-  onClick?: () => void;
-  sx?: SxProps;
-}
-
-export const Button: FC<Props> = ({
-  onClick,
-  sx,
-  children,
-  ...buttonProps
-}) => {
+export const Button: FC<ButtonProps> = ({ children, ...buttonProps }) => {
   const theme = useTheme<Theme>();
 
   return (
     <MuiButton
+      {...buttonProps}
       variant="contained"
       sx={{
         borderRadius: "4px",
         py: 1.25,
         px: 2,
-        lineHeight: "16px",
+        lineHeight: theme.spacing(2),
         color: "common.white",
         borderColor: theme.palette.secondary.main,
         textDecoration: "none",
@@ -44,10 +29,8 @@ export const Button: FC<Props> = ({
           background: "none",
           py: 1.125,
         },
-        ...sx,
+        ...buttonProps.sx,
       }}
-      onClick={onClick}
-      {...buttonProps}
     >
       {children}
     </MuiButton>

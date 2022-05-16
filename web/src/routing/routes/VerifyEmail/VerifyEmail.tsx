@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+
+import { Link } from "@components/Link/Link";
+import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Paths } from "@routing/paths";
+import { VerifyEmailForm } from "@routing/routes/VerifyEmail/VerifyEmailView/VerifyEmailForm";
 import { Auth } from "aws-amplify";
 import { Helmet } from "react-helmet";
 import { useLocation, Navigate } from "react-router-dom";
 
-import { Link } from "@components/Link/Link";
-import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
-import { Paths } from "@routing/paths";
-
 import { useStyles } from "./styles";
-import { VerifyEmailForm } from "@routing/routes/VerifyEmail/VerifyEmailView/VerifyEmailForm";
 
 interface LocationState {
   email?: string;

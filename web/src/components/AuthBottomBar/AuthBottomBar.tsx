@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
 
 import { Link } from "@components/Link/Link";
+import { Box, Button, Grid, Typography } from "@mui/material";
 
 interface Props {
   buttonText: string;

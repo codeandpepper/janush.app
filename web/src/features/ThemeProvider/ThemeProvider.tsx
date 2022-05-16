@@ -2,7 +2,6 @@ import React from "react";
 
 import { createTheme, CssBaseline, Theme, useMediaQuery } from "@mui/material";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-
 import { getPalette } from "@themes/palette";
 
 export interface ThemeContextValue {

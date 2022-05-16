@@ -1,27 +1,20 @@
-import { FC } from "react";
+import { VFC } from "react";
 
-import { TextField, StandardTextFieldProps, SxProps } from "@mui/material";
+import { TextField, StandardTextFieldProps } from "@mui/material";
 
 interface Props extends StandardTextFieldProps {
-  label: string;
   errorMessage?: string | undefined;
-  sx?: SxProps;
 }
 
-export const FormInput: FC<Props> = ({
-  name,
-  label,
+export const FormInput: VFC<Props> = ({
   errorMessage,
   ...restProps
-}: Props) => {
-  return (
-    <TextField
-      label={label}
-      fullWidth
-      error={Boolean(errorMessage)}
-      helperText={errorMessage}
-      variant="filled"
-      {...restProps}
-    />
-  );
-};
+}: Props) => (
+  <TextField
+    fullWidth
+    error={Boolean(errorMessage)}
+    helperText={errorMessage}
+    variant="filled"
+    {...restProps}
+  />
+);

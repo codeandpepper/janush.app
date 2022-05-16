@@ -1,20 +1,30 @@
-import React from "react";
-import { TableCell as MuiTableCell, TableCellProps } from "@mui/material";
+import { FC, ReactNode } from "react";
+
+import {
+  TableCell as MuiTableCell,
+  TableCellProps,
+  Theme,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 interface Props extends TableCellProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-export const TableCell = ({ children, ...tableCellProps }: Props) => (
-  <MuiTableCell
-    align="left"
-    {...tableCellProps}
-    sx={{
-      lineHeight: "24px",
-      fontWeight: 700,
-      ...tableCellProps.sx,
-    }}
-  >
-    {children}
-  </MuiTableCell>
-);
+export const TableCell: FC<Props> = ({ children, ...tableCellProps }) => {
+  const theme = useTheme<Theme>();
+
+  return (
+    <MuiTableCell
+      align="left"
+      {...tableCellProps}
+      sx={{
+        lineHeight: theme.spacing(3),
+        fontWeight: 700,
+        ...tableCellProps.sx,
+      }}
+    >
+      {children}
+    </MuiTableCell>
+  );
+};
