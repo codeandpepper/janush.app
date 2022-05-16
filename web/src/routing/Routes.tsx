@@ -20,44 +20,28 @@ export const Router: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          key={Paths.SIGN_IN_PATH}
-          path={Paths.SIGN_IN_PATH}
-          element={<SignIn />}
-        />
-        <Route
-          key={Paths.SIGN_UP_PATH}
-          path={Paths.SIGN_UP_PATH}
-          element={<SignUp />}
-        />
-        <Route
-          key={Paths.VERIFY_EMAIL_PATH}
-          path={Paths.VERIFY_EMAIL_PATH}
-          element={<VerifyEmail />}
-        />
+        <Route path={Paths.SIGN_IN_PATH} element={<SignIn />} />
+        <Route path={Paths.SIGN_UP_PATH} element={<SignUp />} />
+        <Route path={Paths.VERIFY_EMAIL_PATH} element={<VerifyEmail />} />
         <Route path={Paths.USERS_ADMINISTRATION_PATH}>
           <Route
             path={Paths.USERS_ADMINISTRATION_USERS_PATH}
-            key={Paths.USERS_ADMINISTRATION_USERS_PATH}
             element={<Users />}
           />
           <Route
             path={Paths.USERS_ADMINISTRATION_USERS_USER_DETAILS_PATH}
-            key={Paths.USERS_ADMINISTRATION_USERS_USER_DETAILS_PATH}
             element={<UserDetails />}
           />
           <Route
             path={Paths.USERS_ADMINISTRATION_GROUPS_PATH}
-            key={Paths.USERS_ADMINISTRATION_GROUPS_PATH}
             element={<Groups />}
           />
           <Route
             path={Paths.USERS_ADMINISTRATION_GROUPS_GROUP_DETAILS_PATH}
-            key={Paths.USERS_ADMINISTRATION_GROUPS_GROUP_DETAILS_PATH}
             element={<GroupDetails />}
           />
         </Route>
-        <Route path="/" key="index" element={<IndexPage />} />
+        <Route path="/" element={<IndexPage />} />
       </Routes>
     </BrowserRouter>
   );
