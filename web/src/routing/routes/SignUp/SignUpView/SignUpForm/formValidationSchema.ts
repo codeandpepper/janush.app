@@ -1,4 +1,4 @@
-import { object, ref, SchemaOf, string } from "yup";
+import { object, SchemaOf, string } from "yup";
 
 import { MAX_EMAIL_LENGTH } from "@consts/index";
 import {

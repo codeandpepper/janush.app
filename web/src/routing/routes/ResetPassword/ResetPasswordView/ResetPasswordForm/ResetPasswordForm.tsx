@@ -2,7 +2,7 @@ import { PasswordField } from "@components/PasswordField/PasswordField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CognitoError } from "@interfaces/Cognito";
 import { Nullable } from "@janush-types/useful";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { VFC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ResetPasswordFormState } from "./formState";
@@ -16,15 +16,14 @@ const defaultValues: ResetPasswordFormState = {
 interface Props {
   onSubmit(formData: ResetPasswordFormState): void;
   loading?: boolean;
-  error?: Nullable<CognitoError>;
+  error?: Nullable<CognitoError | string>;
 }
 
-export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading }) => {
-  const { control, handleSubmit, formState, setError } =
-    useForm<ResetPasswordFormState>({
-      resolver: yupResolver(resetPasswordFormValidationSchema()),
-      defaultValues,
-    });
+export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
+  const { control, handleSubmit, formState } = useForm<ResetPasswordFormState>({
+    resolver: yupResolver(resetPasswordFormValidationSchema()),
+    defaultValues,
+  });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
@@ -57,6 +56,16 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading }) => {
           />
         )}
       />
+
+      <Typography
+        data-testid="reset-password-error"
+        color="error"
+        align="center"
+        mt={1}
+        fontSize={14}
+      >
+        {error ? error : " "}
+      </Typography>
       <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
         <Button
           color="primary"
@@ -68,10 +77,6 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading }) => {
         >
           Save
         </Button>
-        {/* TODO: fix loading  */}
-        {/* {loading && (
-          <CircularProgress size={20} className={classes.buttonProgress} />
-        )} */}
       </Box>
     </form>
   );

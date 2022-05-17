@@ -3,15 +3,14 @@ import { Controller, useForm } from "react-hook-form";
 import { EmailField } from "@components/EmailField/EmailField";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useStyles } from "./styles";
+import { ForgotPasswordFormState } from "./formState";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { forgotPasswordFormValidationSchema } from "./formValidationSchema";
 
 interface Props {
   onSubmit(formData: ForgotPasswordFormState): void;
   loading: boolean;
   error?: string;
-}
-
-interface ForgotPasswordFormState {
-  email: string;
 }
 
 const defaultValues = {
@@ -29,7 +28,10 @@ export const ForgotPasswordForm: VFC<Props> = ({
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ForgotPasswordFormState>({ defaultValues });
+  } = useForm<ForgotPasswordFormState>({
+    defaultValues,
+    resolver: yupResolver(forgotPasswordFormValidationSchema()),
+  });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
