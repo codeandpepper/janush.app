@@ -59,7 +59,6 @@ export const ResetPasswordView: VFC<Props> = ({ onSubmit, loading, error }) => {
                     href={Paths.BASE}
                     color="primary"
                     variant="text"
-                    data-testid="reset-password-cancel"
                     fullWidth
                   >
                     Cancel

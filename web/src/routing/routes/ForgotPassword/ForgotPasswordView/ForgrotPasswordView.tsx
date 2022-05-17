@@ -28,13 +28,7 @@ const EmailSentContentBox: VFC = () => (
       If provided email does exists in our database then we will sent reset lin
       on it. You can close this page now.
     </Typography>
-    <Button
-      href={Paths.SIGN_IN_PATH}
-      color="primary"
-      variant="text"
-      data-testid="forgot-password-back-to-sign-in"
-      fullWidth
-    >
+    <Button href={Paths.SIGN_IN_PATH} color="primary" variant="text" fullWidth>
       Back to sign in page
     </Button>
   </Box>
@@ -69,7 +63,6 @@ const ForgotPasswordContentBox: VFC<Props> = ({
             onClick={() => history.goBack()}
             color="primary"
             variant="text"
-            data-testid="forgot-password-go-back"
             fullWidth
           >
             Go Back

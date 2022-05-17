@@ -37,7 +37,6 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
             label="Password"
             placeholder="Password"
             autoComplete="new-password"
-            dataTestId="new-password"
           />
         )}
       />
@@ -52,25 +51,16 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
             label="Confirm Password"
             placeholder="Confirm Password"
             autoComplete="new-password"
-            dataTestId="confirm-new-password"
           />
         )}
       />
-
-      <Typography
-        data-testid="reset-password-error"
-        color="error"
-        align="center"
-        mt={1}
-        fontSize={14}
-      >
+      <Typography color="error" align="center" mt={1} fontSize={14}>
         {error ? error : " "}
       </Typography>
       <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
         <Button
           color="primary"
           type="submit"
-          data-testid="reset-password-button"
           variant="contained"
           disabled={loading}
           fullWidth

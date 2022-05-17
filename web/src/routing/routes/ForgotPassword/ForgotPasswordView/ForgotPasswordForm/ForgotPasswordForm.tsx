@@ -46,20 +46,13 @@ export const ForgotPasswordForm: VFC<Props> = ({
           />
         )}
       />
-      <Typography
-        data-testid="incorrect-email-or-password"
-        color="error"
-        align="center"
-        mt={1}
-        fontSize={14}
-      >
+      <Typography color="error" align="center" mt={1} fontSize={14}>
         {error ? error : " "}
       </Typography>
       <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
         <Button
           color="primary"
           type="submit"
-          data-testid="reset-password-button"
           variant="contained"
           disabled={loading}
           fullWidth
