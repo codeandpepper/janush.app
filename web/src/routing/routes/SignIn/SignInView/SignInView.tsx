@@ -3,12 +3,12 @@ import { VFC } from "react";
 import { Helmet } from "react-helmet";
 
 import { AuthBottomBar } from "@components/AuthBottomBar/AuthBottomBar";
+import { FederatedSignIn } from "@components/FederatedSignIn/FederatedSignIn";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
 import { Paths } from "@routing/paths";
 
 import { SignInForm } from "./SignInForm/SignInForm";
 import { SignInFormState } from "./SignInForm/SignInFormState";
-import { FederatedSignIn } from "./FederatedSignIn/FederatedSignIn";
 
 interface Props {
   error: string;

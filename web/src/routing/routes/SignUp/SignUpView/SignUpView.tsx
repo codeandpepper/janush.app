@@ -3,6 +3,7 @@ import { VFC } from "react";
 import { Helmet } from "react-helmet";
 
 import { AuthBottomBar } from "@components/AuthBottomBar/AuthBottomBar";
+import { FederatedSignIn } from "@components/FederatedSignIn/FederatedSignIn";
 import { CognitoError } from "@interfaces/Cognito";
 import { Nullable } from "@janush-types/useful";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
@@ -30,6 +31,7 @@ export const SignUpView: VFC<Props> = ({ loading, onSignUp, error }) => {
           </Typography>
         </Box>
         <SignUpForm loading={loading} onSubmit={onSignUp} error={error} />
+        <FederatedSignIn />
       </Container>
       <AuthBottomBar
         text="Already have an account?"
