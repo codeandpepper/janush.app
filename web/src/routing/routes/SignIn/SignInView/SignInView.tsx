@@ -29,7 +29,7 @@ export const SignInView: VFC<Props> = ({ error, loading, onSignIn }) => {
             Sign in
           </Typography>
           <SignInForm error={error} loading={loading} onSubmit={onSignIn} />
-          <Link to={Paths.FORGOT_PASSWORD_PATH}>
+          <Link to={Paths.FORGOT_PASSWORD_PATH} underline="none">
             <Typography textAlign="end" mt={2} mr={2}>
               Forgot Password?
             </Typography>

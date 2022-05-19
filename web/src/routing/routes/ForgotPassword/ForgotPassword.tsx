@@ -2,7 +2,7 @@ import { isCognitoError } from "@utils/isCognitoError/isCognitoError";
 import { Auth } from "aws-amplify";
 import { useState, VFC } from "react";
 import { ForgotPasswordFormState } from "./ForgotPasswordView/ForgotPasswordForm/formState";
-import { ForgotPasswordView } from "./ForgotPasswordView/ForgrotPasswordView";
+import { ForgotPasswordView } from "./ForgotPasswordView/ForgotPasswordView";
 
 const ForgotPassword: VFC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,11 +18,9 @@ const ForgotPassword: VFC = () => {
       await Auth.forgotPassword(email);
       setIsEmailSent(true);
     } catch (err: unknown) {
-      if (isCognitoError(err)) {
-        setError(err.message);
-      } else {
-        setError("Oops... Something went wrong");
-      }
+      setError(
+        isCognitoError(err) ? err.message : "Oops... Something went wrong"
+      );
     } finally {
       setIsLoading(false);
     }

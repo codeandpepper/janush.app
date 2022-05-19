@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
 import { ForgotPasswordFormState } from "./ForgotPasswordForm/formState";
 import { Paths } from "@routing/paths";
+import { Link } from "@components/Link/Link";
 
 interface Props {
   error: string;
@@ -28,9 +29,11 @@ const EmailSentContentBox: VFC = () => (
       If provided email does exists in our database then we will sent reset lin
       on it. You can close this page now.
     </Typography>
-    <Button href={Paths.SIGN_IN_PATH} color="primary" variant="text" fullWidth>
-      Back to sign in page
-    </Button>
+    <Link to={Paths.SIGN_IN_PATH} underline="none">
+      <Button color="primary" variant="text" fullWidth>
+        Back to sign in page
+      </Button>
+    </Link>
   </Box>
 );
 

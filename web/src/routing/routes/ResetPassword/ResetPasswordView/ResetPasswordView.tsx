@@ -1,3 +1,4 @@
+import { Link } from "@components/Link/Link";
 import { CognitoError } from "@interfaces/Cognito";
 import { Nullable } from "@janush-types/useful";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
@@ -55,14 +56,11 @@ export const ResetPasswordView: VFC<Props> = ({ onSubmit, loading, error }) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button
-                    href={Paths.BASE}
-                    color="primary"
-                    variant="text"
-                    fullWidth
-                  >
-                    Cancel
-                  </Button>
+                  <Link to={Paths.BASE} underline="none">
+                    <Button color="primary" variant="text" fullWidth>
+                      Cancel
+                    </Button>
+                  </Link>
                 </Grid>
               </Grid>
             </>
