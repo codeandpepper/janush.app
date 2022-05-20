@@ -7,8 +7,8 @@ export interface IProcessEnv {
   IDENTITY_PROVIDER_APPLE_KEY_ID: string;
   IDENTITY_PROVIDER_APPLE_PRIVATE_KEY: string;
   IDENTITY_PROVIDER_APPLE_TEAM_ID: string;
-  USER_POOL_REDIRECT_SIGN_IN?: string;
-  USER_POOL_REDIRECT_SIGN_OUT?: string;
+  USER_POOL_REDIRECT_SIGN_IN: string;
+  USER_POOL_REDIRECT_SIGN_OUT: string;
 }
 
 declare global {

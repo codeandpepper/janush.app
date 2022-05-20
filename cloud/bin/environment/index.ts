@@ -1,8 +1,10 @@
 import * as dotenv from "dotenv";
 import * as Joi from "joi";
+import * as path from "path";
 import { IProcessEnv } from "./environment";
 
-dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), ".env.default") });
+dotenv.config({ override: true });
 
 (function validateEnvironment(): void {
   const envSchema = Joi.object<IProcessEnv>({
@@ -14,13 +16,13 @@ dotenv.config();
     IDENTITY_PROVIDER_APPLE_KEY_ID: Joi.string().required(),
     IDENTITY_PROVIDER_APPLE_PRIVATE_KEY: Joi.string().required(),
     IDENTITY_PROVIDER_APPLE_TEAM_ID: Joi.string().required(),
-    USER_POOL_REDIRECT_SIGN_IN: Joi.string().uri().optional(),
-    USER_POOL_REDIRECT_SIGN_OUT: Joi.string().uri().optional(),
+    USER_POOL_REDIRECT_SIGN_IN: Joi.string().uri().required(),
+    USER_POOL_REDIRECT_SIGN_OUT: Joi.string().uri().required(),
   }).unknown(true);
 
   const validationRes = envSchema.validate(process.env);
   if (validationRes.error) {
-    console.error("Missing environment variable");
+    console.error("Environment variable error");
     throw validationRes.error;
   }
 })();

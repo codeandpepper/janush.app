@@ -67,12 +67,8 @@ export class CognitoUserPoolCdkConstruct extends Construct {
           cognito.UserPoolClientIdentityProvider.APPLE,
         ],
         oAuth: {
-          callbackUrls: [
-            process.env.USER_POOL_REDIRECT_SIGN_IN || "http://localhost:3000/",
-          ],
-          logoutUrls: [
-            process.env.USER_POOL_REDIRECT_SIGN_OUT || "http://localhost:3000/",
-          ],
+          callbackUrls: [process.env.USER_POOL_REDIRECT_SIGN_IN],
+          logoutUrls: [process.env.USER_POOL_REDIRECT_SIGN_OUT],
         },
         preventUserExistenceErrors: true,
         userPool: this.userPool,
