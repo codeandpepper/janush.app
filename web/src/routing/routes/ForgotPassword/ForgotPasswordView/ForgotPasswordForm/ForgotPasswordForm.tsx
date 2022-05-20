@@ -1,11 +1,12 @@
 import { VFC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { EmailField } from "@components/EmailField/EmailField";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { useStyles } from "./styles";
 import { ForgotPasswordFormState } from "./formState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotPasswordFormValidationSchema } from "./formValidationSchema";
+import { ErrorMessage } from "@components/ErrorMessage/ErrorMessage";
 
 interface Props {
   onSubmit(formData: ForgotPasswordFormState): void;
@@ -24,31 +25,26 @@ export const ForgotPasswordForm: VFC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<ForgotPasswordFormState>({
+  const { handleSubmit, control } = useForm<ForgotPasswordFormState>({
     defaultValues,
     resolver: yupResolver(forgotPasswordFormValidationSchema()),
   });
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="email"
         control={control}
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <EmailField
             onChange={field.onChange}
-            errorMessage={errors.email?.message}
+            errorMessage={fieldState.error?.message}
             autoComplete="email"
             autoFocus
           />
         )}
       />
-      <Typography color="error" align="center" mt={1} fontSize={14}>
-        {error ? error : " "}
-      </Typography>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
         <Button
           color="primary"
@@ -63,6 +59,6 @@ export const ForgotPasswordForm: VFC<Props> = ({
           <CircularProgress size={20} className={classes.buttonProgress} />
         )}
       </Box>
-    </form>
+    </Box>
   );
 };

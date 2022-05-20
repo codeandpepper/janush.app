@@ -1,8 +1,9 @@
+import { ErrorMessage } from "@components/ErrorMessage/ErrorMessage";
 import { PasswordField } from "@components/PasswordField/PasswordField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CognitoError } from "@interfaces/Cognito";
 import { Nullable } from "@janush-types/useful";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { VFC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ResetPasswordFormState } from "./formState";
@@ -20,19 +21,20 @@ interface Props {
 }
 
 export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
-  const { control, handleSubmit, formState } = useForm<ResetPasswordFormState>({
+  const { control, handleSubmit } = useForm<ResetPasswordFormState>({
     resolver: yupResolver(resetPasswordFormValidationSchema()),
     defaultValues,
   });
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="password"
         control={control}
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <PasswordField
             onChange={field.onChange}
-            errorMessage={formState.errors.password?.message}
+            errorMessage={fieldState.error?.message}
             ariaControls="password"
             label="Password"
             placeholder="Password"
@@ -43,10 +45,10 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
       <Controller
         name="confirmPassword"
         control={control}
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <PasswordField
             onChange={field.onChange}
-            errorMessage={formState.errors.confirmPassword?.message}
+            errorMessage={fieldState.error?.message}
             ariaControls="confirm-password"
             label="Confirm Password"
             placeholder="Confirm Password"
@@ -54,9 +56,7 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
           />
         )}
       />
-      <Typography color="error" align="center" mt={1} fontSize={14}>
-        {error ? error : " "}
-      </Typography>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
         <Button
           color="primary"
@@ -68,6 +68,6 @@ export const ResetPasswordForm: VFC<Props> = ({ onSubmit, loading, error }) => {
           Save
         </Button>
       </Box>
-    </form>
+    </Box>
   );
 };

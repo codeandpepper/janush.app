@@ -1,3 +1,4 @@
+import { GENERAL_ERROR_MESSAGE } from "@consts/index";
 import { Paths } from "@routing/paths";
 import { isCognitoError } from "@utils/isCognitoError/isCognitoError";
 import { Auth } from "aws-amplify";
@@ -23,11 +24,7 @@ const ResetPassword: VFC = () => {
       await Auth.forgotPasswordSubmit(username!, code!, password);
       history.push(Paths.SIGN_IN_PATH);
     } catch (err: unknown) {
-      if (isCognitoError(err)) {
-        setError(err.message);
-      } else {
-        setError("Oops... Something went wrong");
-      }
+      setError(isCognitoError(err) ? err.message : GENERAL_ERROR_MESSAGE);
     } finally {
       setIsLoading(false);
     }

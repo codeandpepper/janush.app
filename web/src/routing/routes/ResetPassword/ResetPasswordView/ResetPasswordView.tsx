@@ -22,51 +22,49 @@ interface Props {
   error?: Nullable<CognitoError | string>;
 }
 
-export const ResetPasswordView: VFC<Props> = ({ onSubmit, loading, error }) => {
-  return (
-    <AuthLayout>
-      <Container maxWidth="xs">
-        <Helmet>
-          <title>Create new password</title>
-        </Helmet>
-        <Box px={2} boxSizing="border-box">
-          {loading ? (
-            <>
-              <Typography variant="body1" gutterBottom textAlign="center">
-                We are currently verifying your email. You should be able to log
-                into Holy Sun in a moment.
-              </Typography>
-              <CircularProgress size={20} />
-            </>
-          ) : (
-            <>
-              <Typography variant="h4" gutterBottom>
-                Create new password
-              </Typography>
-              <Typography variant="body1">
-                Your password must be 10 or more characters long & contain a mix
-                of upper & lower case letters, numbers & symbols.
-              </Typography>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <ResetPasswordForm
-                    loading={loading}
-                    onSubmit={onSubmit}
-                    error={error}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Link to={Paths.BASE} underline="none">
-                    <Button color="primary" variant="text" fullWidth>
-                      Cancel
-                    </Button>
-                  </Link>
-                </Grid>
+export const ResetPasswordView: VFC<Props> = ({ onSubmit, loading, error }) => (
+  <AuthLayout>
+    <Container maxWidth="xs">
+      <Helmet>
+        <title>Create new password</title>
+      </Helmet>
+      <Box px={2} boxSizing="border-box">
+        {loading ? (
+          <>
+            <Typography variant="body1" gutterBottom textAlign="center">
+              We are currently verifying your email. You should be able to log
+              into Holy Sun in a moment.
+            </Typography>
+            <CircularProgress size={20} />
+          </>
+        ) : (
+          <>
+            <Typography variant="h4" gutterBottom>
+              Create new password
+            </Typography>
+            <Typography variant="body1">
+              Your password must be 10 or more characters long & contain a mix
+              of upper & lower case letters, numbers & symbols.
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <ResetPasswordForm
+                  loading={loading}
+                  onSubmit={onSubmit}
+                  error={error}
+                />
               </Grid>
-            </>
-          )}
-        </Box>
-      </Container>
-    </AuthLayout>
-  );
-};
+              <Grid item xs={12}>
+                <Link to={Paths.BASE} underline="none">
+                  <Button color="primary" variant="text" fullWidth>
+                    Cancel
+                  </Button>
+                </Link>
+              </Grid>
+            </Grid>
+          </>
+        )}
+      </Box>
+    </Container>
+  </AuthLayout>
+);

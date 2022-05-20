@@ -43,6 +43,7 @@ const ForgotPasswordContentBox: VFC<Props> = ({
   error,
 }) => {
   const history = useHistory();
+
   return (
     <Box px={2} boxSizing="border-box">
       <Typography color="textPrimary" gutterBottom variant="h4">
@@ -63,7 +64,7 @@ const ForgotPasswordContentBox: VFC<Props> = ({
         <Grid item xs={12}>
           <Button
             disabled={loading}
-            onClick={() => history.goBack()}
+            onClick={history.goBack}
             color="primary"
             variant="text"
             fullWidth
@@ -81,23 +82,21 @@ export const ForgotPasswordView: VFC<Props> = ({
   loading,
   error,
   isEmailSent,
-}) => {
-  return (
-    <AuthLayout>
-      <Container maxWidth="xs">
-        <Helmet>
-          <title>Forgot password</title>
-        </Helmet>
-        {isEmailSent ? (
-          <EmailSentContentBox />
-        ) : (
-          <ForgotPasswordContentBox
-            onForgotPassword={onForgotPassword}
-            loading={loading}
-            error={error}
-          />
-        )}
-      </Container>
-    </AuthLayout>
-  );
-};
+}) => (
+  <AuthLayout>
+    <Container maxWidth="xs">
+      <Helmet>
+        <title>Forgot password</title>
+      </Helmet>
+      {isEmailSent ? (
+        <EmailSentContentBox />
+      ) : (
+        <ForgotPasswordContentBox
+          onForgotPassword={onForgotPassword}
+          loading={loading}
+          error={error}
+        />
+      )}
+    </Container>
+  </AuthLayout>
+);

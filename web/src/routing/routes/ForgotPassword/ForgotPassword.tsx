@@ -1,3 +1,4 @@
+import { GENERAL_ERROR_MESSAGE } from "@consts/index";
 import { isCognitoError } from "@utils/isCognitoError/isCognitoError";
 import { Auth } from "aws-amplify";
 import { useState, VFC } from "react";
@@ -18,9 +19,7 @@ const ForgotPassword: VFC = () => {
       await Auth.forgotPassword(email);
       setIsEmailSent(true);
     } catch (err: unknown) {
-      setError(
-        isCognitoError(err) ? err.message : "Oops... Something went wrong"
-      );
+      setError(isCognitoError(err) ? err.message : GENERAL_ERROR_MESSAGE);
     } finally {
       setIsLoading(false);
     }
