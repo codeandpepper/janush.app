@@ -68,12 +68,10 @@ export class CognitoUserPoolCdkConstruct extends Construct {
         ],
         oAuth: {
           callbackUrls: [
-            process.env.REACT_APP_USER_POOL_REDIRECT_SIGN_IN ||
-              "http://localhost:3000/",
+            process.env.USER_POOL_REDIRECT_SIGN_IN || "http://localhost:3000/",
           ],
           logoutUrls: [
-            process.env.REACT_APP_USER_POOL_REDIRECT_SIGN_OUT ||
-              "http://localhost:3000/",
+            process.env.USER_POOL_REDIRECT_SIGN_OUT || "http://localhost:3000/",
           ],
         },
         preventUserExistenceErrors: true,
