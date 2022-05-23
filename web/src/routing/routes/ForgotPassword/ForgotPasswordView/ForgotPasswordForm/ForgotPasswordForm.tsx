@@ -31,7 +31,7 @@ export const ForgotPasswordForm: VFC<Props> = ({
   });
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="email"
         control={control}
