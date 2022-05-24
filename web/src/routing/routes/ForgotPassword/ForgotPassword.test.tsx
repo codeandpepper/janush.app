@@ -16,23 +16,17 @@ const MockForgotPassword = () => (
 describe("ForgotPassword", () => {
   it("should show forgot password form view", () => {
     render(<MockForgotPassword />);
-    const heading = screen.getByText("Forgot your password?");
-    const paragraph = screen.getByText(
+    screen.getByText("Forgot your password?");
+    screen.getByText(
       "Please write email you used during create account process. We will send you a message with instructions."
     );
-    const emailInput = screen.getByRole("textbox", { name: /Email/i });
-    const sendButton = screen.getByRole("button", {
+    screen.getByRole("textbox", { name: /Email/i });
+    screen.getByRole("button", {
       name: /Send/i,
     });
-    const goBackButton = screen.getByRole("button", {
+    screen.getByRole("button", {
       name: /Go Back/i,
     });
-
-    expect(heading).toBeInTheDocument();
-    expect(paragraph).toBeInTheDocument();
-    expect(emailInput).toBeInTheDocument();
-    expect(sendButton).toBeInTheDocument();
-    expect(goBackButton).toBeInTheDocument();
   });
 
   it("should validate email properly", async () => {
@@ -49,16 +43,14 @@ describe("ForgotPassword", () => {
       userEvent.click(sendButton);
     });
 
-    const requiredEmailMessage = screen.getByText(/Email is a required field/i);
-    expect(requiredEmailMessage).toBeInTheDocument();
+    screen.getByText(/Email is a required field/i);
 
     await act(async () => {
       userEvent.type(emailInput, "invalidEmail");
       userEvent.click(sendButton);
     });
 
-    const invalidEmailMessage = screen.getByText(/Email is not correct/i);
-    expect(invalidEmailMessage).toBeInTheDocument();
+    screen.getByText(/Email is not correct/i);
   });
 
   it("shoud call Auth.forgotPassword() function on submit", async () => {
@@ -77,14 +69,12 @@ describe("ForgotPassword", () => {
 
     expect(Auth.forgotPassword).toBeCalled();
 
-    const heading = screen.getByRole("heading", {
+    screen.getByRole("heading", {
       name: "Resetting your password",
     });
-    expect(heading).toBeInTheDocument();
 
-    const paragraph = screen.getByText(
+    screen.getByText(
       "If provided email does exists in our database then we will sent reset lin on it. You can close this page now."
     );
-    expect(paragraph).toBeInTheDocument();
   });
 });

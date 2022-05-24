@@ -25,20 +25,13 @@ const renderWithHistory = (
   };
 };
 
-const expectDocumentElements = () => {
+const getResetPasswordElements = () => {
   const heading = screen.getByRole("heading", {
     name: "Create new password",
   });
-  expect(heading).toBeInTheDocument();
-
   const passwordInput = screen.getByText("Password");
-  expect(passwordInput).toBeInTheDocument();
-
   const confirmPasswordInput = screen.getByText("Confirm Password");
-  expect(confirmPasswordInput).toBeInTheDocument();
-
   const saveButton = screen.getByRole("button", { name: /Save/i });
-  expect(saveButton).toBeInTheDocument();
 
   return {
     heading,
@@ -54,8 +47,9 @@ describe("ResetPassword", () => {
       ["/create-new-password?username=test%40test.com&code=165582"],
       <ResetPassword />
     );
-    expectDocumentElements();
+    getResetPasswordElements();
   });
+
   it("shoud redirect when no verification code in query params", () => {
     const { history } = renderWithHistory(
       ["/create-new-password"],
@@ -63,6 +57,7 @@ describe("ResetPassword", () => {
     );
     expect(history.location.pathname).toBe("/");
   });
+
   it("should call reset password function on submit", async () => {
     Auth.forgotPasswordSubmit = jest.fn();
 
@@ -72,7 +67,7 @@ describe("ResetPassword", () => {
     );
 
     const { passwordInput, confirmPasswordInput, saveButton } =
-      expectDocumentElements();
+      getResetPasswordElements();
 
     await act(async () => {
       userEvent.type(passwordInput, "TestPassword00");
@@ -82,6 +77,7 @@ describe("ResetPassword", () => {
 
     expect(Auth.forgotPasswordSubmit).toBeCalled();
   });
+
   it("should validate password properly", async () => {
     renderWithHistory(
       ["/create-new-password?username=test%40test.com&code=165582"],
@@ -89,7 +85,7 @@ describe("ResetPassword", () => {
     );
 
     const { passwordInput, confirmPasswordInput, saveButton } =
-      expectDocumentElements();
+      getResetPasswordElements();
 
     await act(async () => {
       userEvent.click(saveButton);
