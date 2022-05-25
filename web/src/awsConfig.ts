@@ -8,13 +8,9 @@ export const AUTH_CONFIG = {
     userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID,
     oauth: {
       domain: process.env.REACT_APP_USER_POOL_DOMAIN,
-      redirectSignIn:
-        process.env.REACT_APP_USER_POOL_REDIRECT_SIGN_IN ||
-        "http://localhost:3000/",
-      redirectSignOut:
-        process.env.REACT_APP_USER_POOL_REDIRECT_SIGN_OUT ||
-        "http://localhost:3000/",
-      responseType: process.env.REACT_APP_USER_POOL_RESPONSE_TYPE || "code",
+      redirectSignIn: process.env.REACT_APP_USER_POOL_REDIRECT_SIGN_IN,
+      redirectSignOut: process.env.REACT_APP_USER_POOL_REDIRECT_SIGN_OUT,
+      responseType: process.env.REACT_APP_USER_POOL_RESPONSE_TYPE,
     },
   },
 };

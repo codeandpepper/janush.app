@@ -17,7 +17,7 @@ export const FederatedSignIn: VFC = () => {
     []
   );
 
-  return (
+  return providers.length ? (
     <Box display="flex" flexDirection="column" mt={4} gap={1}>
       <Typography align="center">Or continue with...</Typography>
       <Box display="flex" mt={2} gap={2}>
@@ -40,5 +40,5 @@ export const FederatedSignIn: VFC = () => {
         ))}
       </Box>
     </Box>
-  );
+  ) : null;
 };
