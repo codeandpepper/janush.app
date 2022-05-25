@@ -2,7 +2,6 @@ import { VFC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { EmailField } from "@components/EmailField/EmailField";
 import { Box, Button, CircularProgress } from "@mui/material";
-import { useStyles } from "./styles";
 import { ForgotPasswordFormState } from "./formState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotPasswordFormValidationSchema } from "./formValidationSchema";
@@ -23,8 +22,6 @@ export const ForgotPasswordForm: VFC<Props> = ({
   error,
   loading,
 }) => {
-  const classes = useStyles();
-
   const { handleSubmit, control } = useForm<ForgotPasswordFormState>({
     defaultValues,
     resolver: yupResolver(forgotPasswordFormValidationSchema()),
@@ -53,11 +50,8 @@ export const ForgotPasswordForm: VFC<Props> = ({
           disabled={loading}
           fullWidth
         >
-          Send
+          {loading ? <CircularProgress size={20} color="inherit" /> : "Send"}
         </Button>
-        {loading && (
-          <CircularProgress size={20} className={classes.buttonProgress} />
-        )}
       </Box>
     </Box>
   );
