@@ -69,7 +69,9 @@
     "cy:format": "prettier --ignore-path ./cypress/.prettierignore --write ./cypress/**/*.ts",
     "cy:open": "cypress open --config-file ./cypress/cypress.json",
     "cy:run": "node ./cypress/scripts/cypressRun.js",
-    "cy:coverage:start": "react-app-rewired -r @cypress/instrument-cra start"
+    "cy:coverage:start": "react-app-rewired -r @cypress/instrument-cra start",
+    "generate-component": "node src/scripts/createComponent.mjs",
+    "gc": "npm run generate-component"
   },
   "browserslist": {
     "production": [
