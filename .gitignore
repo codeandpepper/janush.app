@@ -1,0 +1,7 @@
+.idea/
+cloud/node_modules/
+cloud/.env
+web/node_modules/
+web/.env
+web/**/*.d.ts
+.DS_Store

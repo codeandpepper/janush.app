@@ -30,9 +30,8 @@ export class EmailsCdkConstruct extends Construct {
       {
         entry: path.join(__dirname, "./emailsLambda.ts"),
         environment: {
-          emailTemplatesBucketName: emailTemplatesBucket.bucketName,
+          TEMPLATES_BUCKET_NAME8: emailTemplatesBucket.bucketName,
         },
-        handler: "customMessageTriggerHandler",
         initialPolicy: [
           new iam.PolicyStatement({
             actions: ["s3:ListBucket", "s3:GetObject"],

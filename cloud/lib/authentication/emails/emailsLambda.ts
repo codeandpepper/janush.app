@@ -4,6 +4,7 @@ import { S3 } from "aws-sdk";
 import { CognitoMessageTriggerSource } from "../../../enums/CognitoMessageTriggerSource";
 import { EmailTemplate } from "../../../enums/EmailTemplate";
 import { generateEmailFromS3Template } from "./utils";
+import { handleError } from "../../../utils/handleError";
 
 const s3 = new S3();
 
@@ -23,7 +24,7 @@ export const generateCodeLink = (
   const path = (() => {
     switch (eventType) {
       case CognitoMessageTriggerSource.ForgotPassword:
-        return "create-new-password";
+        return "reset-password";
       case CognitoMessageTriggerSource.SignUp:
       case CognitoMessageTriggerSource.SignUpAdmin:
       case CognitoMessageTriggerSource.ResendCode:
@@ -87,13 +88,15 @@ export const handler: CustomMessageTriggerHandler = async (
       );
     }
   } catch (e) {
-    console.log(
-      `Error occurred while fetching event ${event.triggerSource}. I am going to send default Email message!`
+    handleError(e);
+    handleError(
+      new Error(
+        `Error occurred while fetching event ${event.triggerSource}. I am going to send default Email message!`
+      )
     );
-    console.error(e);
   }
 
   callback(null, event);
 };
 
-exports.customMessageTriggerHandler = handler;
+// exports.handler = handler;

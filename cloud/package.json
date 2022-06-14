@@ -4,6 +4,10 @@
   "bin": {
     "cloud": "bin/janush-auto-generated-app.js"
   },
+  "engines": {
+    "node": "16.x.x",
+    "npm": "8.x.x"
+  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
