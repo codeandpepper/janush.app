@@ -1,4 +1,4 @@
-import { aws_lambda_nodejs as lambda, aws_iam as iam } from "aws-cdk-lib";
+import { aws_lambda_nodejs as lambda, aws_iam as iam, Fn } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as path from "path";
 
@@ -30,7 +30,8 @@ export class EmailsCdkConstruct extends Construct {
       {
         entry: path.join(__dirname, "./emailsLambda.ts"),
         environment: {
-          TEMPLATES_BUCKET_NAME8: emailTemplatesBucket.bucketName,
+          EMAIL_TEMPLATES_BUCKET_NAME: emailTemplatesBucket.bucketName,
+          WEB_APP_URL: process.env.WEB_APP_URL || "https://janush.app",
         },
         initialPolicy: [
           new iam.PolicyStatement({
