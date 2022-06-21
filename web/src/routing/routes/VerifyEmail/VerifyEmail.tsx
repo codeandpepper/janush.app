@@ -13,10 +13,9 @@ import { useStyles } from "./styles";
 
 const VerifyEmail: VFC = () => {
   const classes = useStyles();
-
   const [disabled, setDisabled] = useState<boolean>(false);
-
   const { search } = useLocation();
+
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
   const username = queryParams.get("username");
   const code = queryParams.get("code");

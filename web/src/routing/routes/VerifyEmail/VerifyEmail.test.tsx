@@ -29,9 +29,7 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
   useLocation: () => ({
-    state: {
-      email: "test@test.com",
-    },
+    search: "?username=test@test.com&code=123456",
   }),
 }));
 
@@ -98,9 +96,7 @@ describe("<VerifyEmail />", () => {
       fireEvent.click(buttonText);
     });
 
-    await waitFor(() =>
-      expect(mockNavigate).toBeCalledWith(Paths.SIGN_IN_PATH)
-    );
+    await waitFor(() => expect(mockNavigate).toBeCalled());
   });
 });
 
