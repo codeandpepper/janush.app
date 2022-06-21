@@ -22,7 +22,7 @@ export const Router: VFC = () => {
       <Route path={Paths.SIGN_IN_PATH} element={<SignIn />} />
       <Route path={Paths.SIGN_UP_PATH} element={<SignUp />} />
       <Route path={Paths.SIGN_UP_PATH_SUCCESS} element={<SignUpSuccess />} />
-      <Route path={Paths.VERIFY_EMAIL_PATH} element={<VerifyEmail />} />
+      <Route path={Paths.CONFIRM_SIGN_UP} element={<VerifyEmail />} />
       <Route path={Paths.FORGOT_PASSWORD_PATH} element={<ForgotPassword />} />
       <Route path={Paths.RESET_PASSWORD_PATH} element={<ResetPassword />} />
       <Route path="/" element={<IndexPage />} />

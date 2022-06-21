@@ -43,7 +43,7 @@ const setup = async (history?: MemoryHistory) => {
   render(
     <ThemeProvider>
       {history ? (
-        <Router location={Paths.VERIFY_EMAIL_PATH} navigator={history}>
+        <Router location={Paths.CONFIRM_SIGN_UP} navigator={history}>
           <VerifyEmail />
         </Router>
       ) : (
