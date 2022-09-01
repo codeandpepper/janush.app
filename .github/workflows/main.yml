@@ -71,6 +71,7 @@ jobs:
           aws-region: ${{ secrets.REGION }}
           mask-aws-account-id: 'false'
       - name: merge graphql schemas
+        working-directory: ./cloud
         run: npm run schema:merge
       - uses: ./.github/actions/cognito
         env:
